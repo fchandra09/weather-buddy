@@ -104,7 +104,7 @@ if (!isset($user)) {
 							</a>
 							<ul class="dropdown-menu">
 								<li>
-									<a href="<?php echo URL_WITH_INDEX_FILE; ?>user/edit">Settings</a>
+									<a href="<?php echo URL_WITH_INDEX_FILE; ?>user">Settings</a>
 								</li>
 								<li>
 									<a href="<?php echo URL_WITH_INDEX_FILE; ?>user/logout">Logout</a>
