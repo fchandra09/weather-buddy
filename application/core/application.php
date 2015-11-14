@@ -141,10 +141,12 @@ class Application
 
 	private function loadHelpers()
 	{
+		require APP . '/helpers/mathHelper.php';
 		require APP . '/helpers/queryHelper.php';
 		require APP . '/helpers/siteHelper.php';
 		require APP . '/helpers/stringHelper.php';
 
+		$GLOBALS["beans"]->mathHelper = new MathHelper();
 		$GLOBALS["beans"]->queryHelper = new QueryHelper();
 		$GLOBALS["beans"]->siteHelper = new SiteHelper();
 		$GLOBALS["beans"]->stringHelper = new StringHelper();
@@ -153,11 +155,17 @@ class Application
 	private function loadServices()
 	{
 		require APP . '/core/model.php';
+		require APP . '/models/feelModel.php';
+		require APP . '/models/scheduleModel.php';
 		require APP . '/models/userModel.php';
 
 		require APP . '/core/service.php';
+		require APP . '/services/feelService.php';
+		require APP . '/services/scheduleService.php';
 		require APP . '/services/userService.php';
 
+		$GLOBALS["beans"]->feelService = new FeelService(new FeelModel($this->db));
+		$GLOBALS["beans"]->scheduleService = new ScheduleService(new ScheduleModel($this->db));
 		$GLOBALS["beans"]->userService = new UserService(new UserModel($this->db));
 	}
 

@@ -28,6 +28,9 @@ class UserService extends Service
 			if (password_verify($_POST["password"],$loginInfo->Password))
 			{
 				$_SESSION["userID"] = $loginInfo->ID;
+				$_SESSION["temperatureUnit"] = $loginInfo->Temperature_Unit;
+				$_SESSION["timeFormat"] = $loginInfo->Time_Format;
+				$_SESSION["homeScreen"] = $loginInfo->Home_Screen;
 				$errorMessage = "";
 			}
 		}

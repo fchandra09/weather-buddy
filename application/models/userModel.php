@@ -30,7 +30,7 @@ class UserModel extends Model
 
 	public function getLoginInfo($email)
 	{
-		$sql = "SELECT ID, Email, Password
+		$sql = "SELECT ID, Email, Password, Temperature_Unit, Time_Format, Home_Screen
 				FROM User
 				WHERE Email = :email";
 

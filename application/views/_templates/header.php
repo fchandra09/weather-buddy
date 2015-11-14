@@ -34,12 +34,15 @@ if (!isset($user)) {
 	<link href="<?php echo URL; ?>public/css/bootstrap.css" rel="stylesheet">
 	<link href="<?php echo URL; ?>public/css/bootstrap-theme.css" rel="stylesheet">
 	<link href="<?php echo URL; ?>public/css/bootstrap-datepicker3.css" rel="stylesheet">
+	<link href="<?php echo URL; ?>public/css/bootstrap-timepicker.css" rel="stylesheet">
 
 	<!-- JS -->
 	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 	<script src="<?php echo URL; ?>public/js/jquery.validate.js" type="text/javascript"></script>
+	<script src="<?php echo URL; ?>public/js/additional-methods.js" type="text/javascript"></script>
 	<script src="<?php echo URL; ?>public/js/bootstrap.js"></script>
 	<script src="<?php echo URL; ?>public/js/bootstrap-datepicker.js"></script>
+	<script src="<?php echo URL; ?>public/js/bootstrap-timepicker.js"></script>
 	<script src="<?php echo URL; ?>public/js/application.js"></script>
 	<!--[if lt IE 9]>
 		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -50,7 +53,10 @@ if (!isset($user)) {
 			errorElement: 'span',
 			errorClass: 'help-block error-help-block',
 			errorPlacement: function (error, element) {
-				if (element.parent('.input-group').length || element.prop('type') === 'checkbox' || element.prop('type') === 'radio') {
+				if (element.parent().parent().hasClass('checkbox')) {
+					element.parent().parent().parent().append(error);
+				}
+				else if (element.parent('.input-group').length || element.prop('type') === 'checkbox' || element.prop('type') === 'radio') {
 					error.insertAfter(element.parent());
 				}
 				else {
@@ -71,7 +77,12 @@ if (!isset($user)) {
 		$(document).ready(function(){
 			// Add asterisk to required fields
 			$('input,textarea,select').filter('[required]').each(function(index, element) {
-				$(element).closest('.form-group').find('label').append('<span class="asterisk-required">*</span>');
+				$(element).closest('.form-group').find('label:first').append('<span class="asterisk-required">*</span>');
+			});
+
+			// Add asterisk to required groups of checkboxes or radio buttons
+			$('.form-group.required').each(function(index, element) {
+				$(element).find('label:first').append('<span class="asterisk-required">*</span>');
 			});
 		});
 	</script>
