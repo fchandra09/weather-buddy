@@ -70,7 +70,7 @@ else {
 <script>
 	$(document).ready(function(){
 		$('#cancel').click(function(){
-			window.location.href = '<?php echo URL_WITH_INDEX_FILE ?>feels';
+			window.location.href = '<?php echo URL_WITH_INDEX_FILE; ?>feels';
 		});
 
 		$('#form').validate({

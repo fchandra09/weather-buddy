@@ -71,7 +71,7 @@ else {
 <script>
 	$(document).ready(function(){
 		$('#cancel').click(function(){
-			window.location.href = '<?php echo URL_WITH_INDEX_FILE ?>schedule';
+			window.location.href = '<?php echo URL_WITH_INDEX_FILE; ?>schedule';
 		});
 
 		$('.input-group.timepicker').find('input[type="text"]').each(function() {

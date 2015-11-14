@@ -8,17 +8,22 @@ if (!$this) {
 	exit(header('HTTP/1.0 403 Forbidden'));
 }
 
+if (!isset($userID)) {
+	$userID = $GLOBALS["beans"]->siteHelper->getSession("userID");
+}
+if (!isset($user)) {
+	$user = $GLOBALS["beans"]->userService->getUser($userID);
+}
+
 $activeView = "";
 if (array_key_exists("PATH_INFO", $_SERVER)) {
 	$pathInfoArray = explode("/", $_SERVER["PATH_INFO"]);
 	$activeView = $pathInfoArray[1];
 }
 
-if (!isset($userID)) {
-	$userID = $GLOBALS["beans"]->siteHelper->getSession("userID");
-}
-if (!isset($user)) {
-	$user = $GLOBALS["beans"]->userService->getUser($userID);
+$settingsNav = false;
+if (is_numeric($userID) && in_array(strtolower($activeView), explode(",", "user,feels,schedule"))) {
+	$settingsNav = true;
 }
 
 ?><!DOCTYPE html>
@@ -132,3 +137,7 @@ if (!isset($user)) {
 			</div>
 		</div>
 	</nav>
+
+	<?php if ($settingsNav) {
+		require APP . 'views/_templates/settings.php';
+	} ?>

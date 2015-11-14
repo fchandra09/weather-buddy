@@ -8,6 +8,8 @@ class User
 		require APP . 'views/_templates/header.php';
 		if (is_numeric($GLOBALS["beans"]->siteHelper->getSession("userID")))
 		{
+			$userID = $GLOBALS["beans"]->siteHelper->getSession("userID");
+			$user = $GLOBALS["beans"]->userService->getUser($userID);
 			require APP . 'views/user/index.php';
 		}
 		else
@@ -19,6 +21,9 @@ class User
 
 	public function edit()
 	{
+		$userID = $GLOBALS["beans"]->siteHelper->getSession("userID");
+		$user = $GLOBALS["beans"]->userService->getUser($userID);
+
 		require APP . 'views/_templates/header.php';
 		require APP . 'views/user/edit.php';
 		require APP . 'views/_templates/footer.php';
@@ -57,4 +62,10 @@ class User
 		var_export($unique);
 	}
 
+	public function save()
+	{
+		$GLOBALS["beans"]->userService->updateUser();
+	
+		header('location: ' . URL_WITH_INDEX_FILE . 'user');
+	}
 }

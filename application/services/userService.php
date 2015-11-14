@@ -18,14 +18,23 @@ class UserService extends Service
 		$this->model->insertUser();
 	}
 
+	public function updateUser()
+	{
+		$this->model->updateUser();
+
+		$_SESSION["temperatureUnit"] = $_POST["temperatureUnit"];
+		$_SESSION["timeFormat"] = $_POST["timeFormat"];
+		$_SESSION["homeScreen"] = $_POST["homeScreen"];
+	}
+
 	public function login()
 	{
 		$errorMessage = "Invalid email or password.";
-		$loginInfo = $this->model->getLoginInfo($_POST["email"]);
+		$loginInfo = $this->model->getLoginInfo($_POST["loginEmail"]);
 
-		if (strcasecmp($_POST["email"],$loginInfo->Email) == 0)
+		if (strcasecmp($_POST["loginEmail"],$loginInfo->Email) == 0)
 		{
-			if (password_verify($_POST["password"],$loginInfo->Password))
+			if (password_verify($_POST["loginPassword"],$loginInfo->Password))
 			{
 				$_SESSION["userID"] = $loginInfo->ID;
 				$_SESSION["temperatureUnit"] = $loginInfo->Temperature_Unit;

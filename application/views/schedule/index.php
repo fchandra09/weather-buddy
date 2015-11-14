@@ -64,17 +64,17 @@
 <script>
 	$(document).ready(function(){
 		$('#add').click(function(){
-			window.location.href = '<?php echo URL_WITH_INDEX_FILE . "schedule/edit"; ?>';
+			window.location.href = '<?php echo URL_WITH_INDEX_FILE; ?>schedule/edit';
 		});
 	});
 
 	editSchedule = function(scheduleID) {
-		window.location.href = '<?php echo URL_WITH_INDEX_FILE . "schedule/edit/"; ?>' + scheduleID;
+		window.location.href = '<?php echo URL_WITH_INDEX_FILE; ?>schedule/edit/' + scheduleID;
 	}
 
 	deleteSchedule = function(scheduleID) {
 		if (confirm('Are you sure you want to delete this record?')) {
-			window.location.href = '<?php echo URL_WITH_INDEX_FILE . "schedule/delete/"; ?>' + scheduleID;
+			window.location.href = '<?php echo URL_WITH_INDEX_FILE; ?>schedule/delete/' + scheduleID;
 		}
 	}
 </script>

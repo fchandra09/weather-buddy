@@ -56,17 +56,17 @@
 <script>
 	$(document).ready(function(){
 		$('#add').click(function(){
-			window.location.href = '<?php echo URL_WITH_INDEX_FILE . "feels/edit"; ?>';
+			window.location.href = '<?php echo URL_WITH_INDEX_FILE; ?>feels/edit';
 		});
 	});
 
 	editFeel = function(feelID) {
-		window.location.href = '<?php echo URL_WITH_INDEX_FILE . "feels/edit/"; ?>' + feelID;
+		window.location.href = '<?php echo URL_WITH_INDEX_FILE; ?>feels/edit/' + feelID;
 	}
 
 	deleteFeel = function(feelID) {
 		if (confirm('Are you sure you want to delete this record?')) {
-			window.location.href = '<?php echo URL_WITH_INDEX_FILE . "feels/delete/"; ?>' + feelID;
+			window.location.href = '<?php echo URL_WITH_INDEX_FILE; ?>feels/delete' + feelID;
 		}
 	}
 </script>
