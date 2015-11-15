@@ -4,8 +4,8 @@ if (isset($userID) && is_numeric($userID))
 {
 	$newUser = false;
 	$passwordLabel = "New Password";
-	$labelWidth = "2";
-	$fieldWidth = "10";
+	$labelWidth = "3";
+	$fieldWidth = "9";
 }
 else
 {

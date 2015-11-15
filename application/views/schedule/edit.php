@@ -21,7 +21,7 @@ else {
 }
 ?>
 
-<div class="container">
+<div class="container main-container">
 	<h2 class="page-header"><?php echo $title; ?></h2>
 	<form id="form" method="post" action="<?php echo URL_WITH_INDEX_FILE; ?>schedule/save" class="form-horizontal">
 		<input type="hidden" id="scheduleID" name="scheduleID" value="<?php echo $scheduleID ?>" />

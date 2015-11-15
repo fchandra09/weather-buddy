@@ -1,6 +1,6 @@
 <?php if (!$this) { exit(header('HTTP/1.0 403 Forbidden')); } ?>
 
-<div class="container">
+<div class="container main-container">
 	<h2 class="page-header">Schedule</h2>
 
 	<p>

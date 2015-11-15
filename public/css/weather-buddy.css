@@ -1,0 +1,31 @@
+#loginContainer {
+	width: 500px;
+}
+#loginContainer .col-sm-3, #loginContainer .col-sm-4 {
+	padding-right: 0;
+}
+.main-container, #loginDiv, #createAccountDiv {
+	-moz-border-bottom-colors: none;
+	-moz-border-left-colors: none;
+	-moz-border-right-colors: none;
+	-moz-border-top-colors: none;
+	border-color: transparent #ddd #ddd;
+	border-image: none;
+	border-style: solid;
+	border-width: 1px;
+	border-radius: 0 0 4px 4px;
+}
+.main-container {
+	width: 1140px;
+	padding: 20px 20px 15px;
+}
+.main-container .page-header {
+	margin-top: 0;
+}
+#loginDiv {
+	padding: 20px 20px 15px 15px;
+}
+#createAccountDiv {
+	display: none;
+	padding: 20px 20px 15px 15px;
+}

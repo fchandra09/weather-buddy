@@ -40,6 +40,7 @@ if (is_numeric($userID) && in_array(strtolower($activeView), explode(",", "user,
 	<link href="<?php echo URL; ?>public/css/bootstrap-theme.css" rel="stylesheet">
 	<link href="<?php echo URL; ?>public/css/bootstrap-datepicker3.css" rel="stylesheet">
 	<link href="<?php echo URL; ?>public/css/bootstrap-timepicker.css" rel="stylesheet">
+	<link href="<?php echo URL; ?>public/css/weather-buddy.css" rel="stylesheet">
 
 	<!-- JS -->
 	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>

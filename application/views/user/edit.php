@@ -15,7 +15,7 @@ $email = $user->Email;
 	});
 </script>
 
-<div class="container">
+<div class="container main-container">
 	<h2 class="page-header">Edit User Info</h2>
 	<form id="form" method="post" action="<?php echo URL_WITH_INDEX_FILE; ?>user/save" class="form-horizontal">
 		<input type="hidden" id="userID" name="userID" value="<?php echo $userID ?>" />
@@ -23,8 +23,8 @@ $email = $user->Email;
 		<?php require '_editLogin.php' ?>
 
 		<div class="form-group">
-			<label for="temperatureUnit" class="col-sm-2 control-label">Temperature Unit</label>
-			<div class="col-sm-10">
+			<label for="temperatureUnit" class="col-sm-3 control-label">Temperature Unit</label>
+			<div class="col-sm-9">
 				<div class="radio-inline">
 					<label>
 						<input type="radio" id="temperatureUnitF" name="temperatureUnit" value="F" <?php if ($user->Temperature_Unit == "F") { ?>checked<?php } ?> />
@@ -40,8 +40,8 @@ $email = $user->Email;
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="timeFormat" class="col-sm-2 control-label">Time Format</label>
-			<div class="col-sm-10">
+			<label for="timeFormat" class="col-sm-3 control-label">Time Format</label>
+			<div class="col-sm-9">
 				<div class="radio-inline">
 					<label>
 						<input type="radio" id="timeFormat12" name="timeFormat" value="12" <?php if ($user->Time_Format == "12") { ?>checked<?php } ?> />
@@ -57,8 +57,8 @@ $email = $user->Email;
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="homeScreen" class="col-sm-2 control-label">Home Screen</label>
-			<div class="col-sm-10">
+			<label for="homeScreen" class="col-sm-3 control-label">Home Screen</label>
+			<div class="col-sm-9">
 				<div class="radio-inline">
 					<label>
 						<input type="radio" id="homeScreenToday" name="homeScreen" value="Today" <?php if (strcasecmp("Today", $user->Home_Screen) == 0) { ?>checked<?php } ?> />
@@ -75,7 +75,7 @@ $email = $user->Email;
 		</div>
 
 		<div class="form-group">
-			<div class="col-sm-offset-2 col-sm-10">
+			<div class="col-sm-offset-3 col-sm-9">
 				<button type="button" id="cancel" class="btn btn-default">Cancel</button>
 				<button type="submit" class="btn btn-default">Save</button>
 			</div>

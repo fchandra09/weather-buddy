@@ -5,18 +5,6 @@ $lastName = "";
 $email = "";
 ?>
 
-<style>
-	#content {
-		width: 500px;
-	}
-	#createAccountDiv {
-		display: none;
-	}
-	.col-sm-3, .col-sm-4 {
-		padding-right: 0;
-	}
-</style>
-
 <script>
 	$(document).ready(function(){
 		$('#loginForm').validate({
@@ -46,7 +34,7 @@ $email = "";
 </script>
 
 <div class="container">
-	<div id="content">
+	<div id="loginContainer">
 		<ul class="nav nav-tabs">
 			<li role="presentation" class="active">
 				<a id="loginTab" href="#">Login</a>

@@ -8,7 +8,7 @@ else {
 }
 ?>
 
-<div class="container">
+<div class="container main-container">
 	<h2 class="page-header">User Info</h2>
 
 	<div class="section form-horizontal">
