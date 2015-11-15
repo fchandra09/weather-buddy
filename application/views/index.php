@@ -80,7 +80,7 @@ $email = "";
 
 		<div id="createAccountDiv">
 			<form id="createAccountForm" method="post" action="<?php echo URL_WITH_INDEX_FILE; ?>user/createAccount" class="form-horizontal">
-				<?php require 'user\_editLogin.php' ?>
+				<?php require 'user/_editLogin.php' ?>
 				<div class="form-group">
 					<div class="col-sm-offset-4 col-sm-8">
 						<button type="submit" class="btn btn-default">Submit</button>

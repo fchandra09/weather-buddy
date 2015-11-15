@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS User (
     `Password` CHAR(255) NOT NULL,
 	Temperature_Unit VARCHAR(1) NOT NULL DEFAULT 'F',
 	Time_Format VARCHAR(2) NOT NULL DEFAULT '12',
-	Home_Screen VARCHAR(50) NOT NULL DEFAULT 'Today'
+	Home_Screen VARCHAR(50) NOT NULL DEFAULT 'Today',
     Created_On DATETIME NULL,
     Modified_On DATETIME NULL,
     PRIMARY KEY (ID)
