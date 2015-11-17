@@ -1,10 +1,78 @@
+/***** Global Settings *****/
+
+body {
+	background-image: url("../img/bg.png");
+	background-repeat: repeat-x;
+	background-position: left top;
+	background-color: #fff096;
+	font-family: "Rubik","Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size: 15px;
+	color: #4c4c4c;
+}
+
+.navbar-inverse {
+	background-image: url("../img/navbar-bg.png");
+	background-repeat: repeat-x;
+	background-position: left bottom;
+	background-color: transparent;
+	border-color: #fff;
+}
+.navbar-inverse .navbar-brand,
+.navbar-inverse .navbar-nav > li > a,
+.navbar-inverse .navbar-nav > .open > a {
+	color: #fff;
+	text-shadow: none;
+	background-image: none;
+	background-color: transparent;
+}
+.navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-brand:focus,
+.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus,
+.navbar-inverse .navbar-nav > .open > a,
+.navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
+	color: #4c4c4c;
+	background-color: transparent;
+}
+.navbar-inverse .navbar-brand {
+	font-size: 30px;
+}
+.navbar-inverse .navbar-nav > li > a {
+	font-size: 18px;
+}
+
+.page-header {
+	border-bottom: none;
+}
+
+.panel-default {
+	background-image: url("../img/transparent.png");
+	background-repeat: repeat;
+	background-position: left top;
+	background-color: transparent;
+	border-color: #fff;
+}
+
+.table > thead > tr > th {
+	font-weight: 400;
+	text-transform: uppercase;
+	border: none;
+}
+.table > thead > tr > th, .table > thead > tr > td,
+.table > tbody > tr > th, .table > tbody > tr > td,
+.table > tfoot > tr > th, .table > tfoot > tr > td {
+	border: none;
+	padding: 15px 8px;
+}
+
+/***** Login Page *****/
+
 #loginContainer {
 	width: 500px;
 }
 #loginContainer .col-sm-3, #loginContainer .col-sm-4 {
 	padding-right: 0;
 }
-.main-container, #loginDiv, #createAccountDiv {
+.main-container,
+#loginDiv, #createAccountDiv {
 	-moz-border-bottom-colors: none;
 	-moz-border-left-colors: none;
 	-moz-border-right-colors: none;
@@ -28,4 +96,40 @@
 #createAccountDiv {
 	display: none;
 	padding: 20px 20px 15px 15px;
+}
+
+/***** Weather Pages *****/
+.location {
+	color: #fff;
+	font-size: 17px;
+}
+.welcome {
+	color: #fff;
+	font-size: 32px;
+	margin: 70px 0 10px;
+}
+.important-info {
+	color: #fff;
+	font-size: 36px;
+	margin: 10px 0;
+}
+.important-info .glyphicon {
+	font-size: 22px;
+	display: inline-block;
+	margin-left: 15px;
+}
+.additional-info {
+	color: #fff;
+	font-size: 22px;
+	margin: 10px 0;
+}
+.weather-details {
+	margin: 90px 0 20px;
+}
+.weather-details .table {
+	margin-bottom: 0;
+}
+.main-link {
+	color: #fff;
+	text-transform: uppercase;
 }
