@@ -54,12 +54,13 @@ body {
 .table > thead > tr > th {
 	font-weight: 400;
 	text-transform: uppercase;
-	border: none;
+	border-bottom: 1px solid #fff !important;
+	border-top: none !important;
 }
 .table > thead > tr > th, .table > thead > tr > td,
 .table > tbody > tr > th, .table > tbody > tr > td,
 .table > tfoot > tr > th, .table > tfoot > tr > td {
-	border: none;
+	border-top: 1px solid #fff;
 	padding: 15px 8px;
 }
 
@@ -99,14 +100,29 @@ body {
 }
 
 /***** Weather Pages *****/
+.location-search {
+	margin-left: 60px;
+}
+.location-search input {
+	width: 400px !important;
+}
 .location {
 	color: #fff;
 	font-size: 17px;
 }
+.main-link {
+	color: #fff;
+	text-transform: uppercase;
+	font-size: 17px;
+	margin-top: 30px;
+}
+.main-link .glyphicon {
+	font-size: 15px;
+}
 .welcome {
 	color: #fff;
 	font-size: 32px;
-	margin: 70px 0 10px;
+	margin: 50px 0 10px;
 }
 .important-info {
 	color: #fff;
@@ -124,12 +140,32 @@ body {
 	margin: 10px 0;
 }
 .weather-details {
-	margin: 90px 0 20px;
+	margin: 70px 0 20px;
 }
 .weather-details .table {
 	margin-bottom: 0;
 }
-.main-link {
-	color: #fff;
-	text-transform: uppercase;
+.weather-icon {
+	height: 25px;
+	width: 25px;
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+.weather-icon.sun {
+	background-image: url("../img/weather/sun.png");
+}
+.weather-icon.moon {
+	background-image: url("../img/weather/moon.png");
+}
+.weather-icon.cloud {
+	background-image: url("../img/weather/cloud.png");
+}
+.weather-icon.rain {
+	background-image: url("../img/weather/rain.png");
+}
+.weather-icon.snow {
+	background-image: url("../img/weather/snow.png");
+}
+.weather-icon.storm {
+	background-image: url("../img/weather/storm.png");
 }

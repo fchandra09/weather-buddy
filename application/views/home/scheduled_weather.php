@@ -5,6 +5,10 @@
 		Champaign, IL 61820<br/>
 		November 17, 2015
 	</div>
+	<div class="main-link">
+		See Today's Weather
+		<span class="glyphicon glyphicon-chevron-right"></span>
+	</div>
 
 	<div class="welcome text-center">Welcome, Jane!</div>
 	<div class="important-info text-center">
@@ -22,7 +26,7 @@
 					<thead>
 						<tr>
 							<th>Time</th>
-							<th width="1%">&nbsp;</th>
+							<th>&nbsp;</th>
 							<th>Temperature</th>
 							<th>Feel</th>
 							<th>Precipitation</th>
@@ -33,7 +37,7 @@
 					<tbody>
 						<tr>
 							<td>11:00 AM</td>
-							<td><i class="fa fa-sun-o"></i></td>
+							<td class="text-center"><div class="weather-icon sun" /></td>
 							<td>83&deg;F</td>
 							<td>Scorching hot</td>
 							<td>70%</td>
@@ -42,7 +46,7 @@
 						</tr>
 						<tr>
 							<td>12:00 PM</td>
-							<td><i class="fa fa-cloud"></i></td>
+							<td class="text-center"><div class="weather-icon cloud" /></td>
 							<td>75&deg;F</td>
 							<td>Warm</td>
 							<td>80%</td>
@@ -51,7 +55,7 @@
 						</tr>
 						<tr>
 							<td>1:00 PM</td>
-							<td><i class="fa fa-cloud"></i></td>
+							<td class="text-center"><div class="weather-icon cloud" /></i></td>
 							<td>70&deg;F</td>
 							<td>Warm</td>
 							<td>95%</td>
@@ -60,7 +64,7 @@
 						</tr>
 						<tr>
 							<td>2:00 PM</td>
-							<td><i class="fa fa-tint"></i></td>
+							<td class="text-center"><div class="weather-icon rain" /></td>
 							<td>69&deg;F</td>
 							<td>Warm</td>
 							<td>100%</td>
@@ -71,9 +75,5 @@
 				</table>
 			</div>
 		</div>
-	</div>
-
-	<div class="main-link text-right">
-		See Today's Weather
 	</div>
 </div>

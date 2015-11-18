@@ -37,6 +37,7 @@ if (is_numeric($userID) && in_array(strtolower($activeView), explode(",", "user,
 
 	<!-- CSS -->
 	<link href='https://fonts.googleapis.com/css?family=Rubik:400,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Delius' rel='stylesheet' type='text/css'>
 	<link href="<?php echo URL; ?>public/css/bootstrap.css" rel="stylesheet">
 	<link href="<?php echo URL; ?>public/css/bootstrap-theme.css" rel="stylesheet">
 	<link href="<?php echo URL; ?>public/css/bootstrap-datepicker3.css" rel="stylesheet">
@@ -111,6 +112,17 @@ if (is_numeric($userID) && in_array(strtolower($activeView), explode(",", "user,
 					My Weather Buddy
 				</a>
 			</div>
+
+			<?php if (!$settingsNav) { ?>
+				<div class="navbar-form navbar-left location-search">
+					<div class="input-group">
+						<input type="text" class="form-control" placeholder="Search city or zip" />
+						<span class="input-group-addon">
+							<span class="glyphicon glyphicon-search"></span>
+						</span>
+					</div>
+				</div>
+			<?php } ?>
 
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right">
