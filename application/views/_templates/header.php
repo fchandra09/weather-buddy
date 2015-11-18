@@ -36,8 +36,7 @@ if (is_numeric($userID) && in_array(strtolower($activeView), explode(",", "user,
 	<meta name="description" content="">
 
 	<!-- CSS -->
-	<link href='https://fonts.googleapis.com/css?family=Rubik:400,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
-	<link href='https://fonts.googleapis.com/css?family=Delius' rel='stylesheet' type='text/css'>
+	<link href="https://fonts.googleapis.com/css?family=Delius" rel="stylesheet" type="text/css">
 	<link href="<?php echo URL; ?>public/css/bootstrap.css" rel="stylesheet">
 	<link href="<?php echo URL; ?>public/css/bootstrap-theme.css" rel="stylesheet">
 	<link href="<?php echo URL; ?>public/css/bootstrap-datepicker3.css" rel="stylesheet">

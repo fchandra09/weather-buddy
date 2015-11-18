@@ -5,8 +5,8 @@ body {
 	background-repeat: repeat-x;
 	background-position: left top;
 	background-color: #fff096;
-	font-family: "Rubik","Helvetica Neue",Helvetica,Arial,sans-serif;
-	font-size: 15px;
+	font-family: "Delius","Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size: 16px;
 	color: #4c4c4c;
 }
 
@@ -34,9 +34,17 @@ body {
 }
 .navbar-inverse .navbar-brand {
 	font-size: 30px;
+	font-weight: bold;
 }
 .navbar-inverse .navbar-nav > li > a {
-	font-size: 18px;
+	font-size: 20px;
+	font-weight: bold;
+}
+.dropdown-menu {
+	font-size: 16px;
+}
+.dropdown-menu > li > a {
+	color: #4c4c4c;
 }
 
 .page-header {
@@ -52,7 +60,6 @@ body {
 }
 
 .table > thead > tr > th {
-	font-weight: 400;
 	text-transform: uppercase;
 	border-bottom: 1px solid #fff !important;
 	border-top: none !important;
@@ -62,6 +69,10 @@ body {
 .table > tfoot > tr > th, .table > tfoot > tr > td {
 	border-top: 1px solid #fff;
 	padding: 15px 8px;
+}
+
+.form-control {
+	font-size: 15px;
 }
 
 /***** Login Page *****/
@@ -117,7 +128,7 @@ body {
 	margin-top: 30px;
 }
 .main-link .glyphicon {
-	font-size: 15px;
+	font-size: 16px;
 }
 .welcome {
 	color: #fff;
@@ -127,6 +138,7 @@ body {
 .important-info {
 	color: #fff;
 	font-size: 36px;
+	font-weight: bold;
 	margin: 10px 0;
 }
 .important-info .glyphicon {
@@ -136,7 +148,7 @@ body {
 }
 .additional-info {
 	color: #fff;
-	font-size: 22px;
+	font-size: 26px;
 	margin: 10px 0;
 }
 .weather-details {
