@@ -127,6 +127,12 @@ body {
 	font-size: 17px;
 	margin-top: 30px;
 }
+.main-link a {
+	color: #fff;
+}
+.main-link a:hover, .main-link a:focus {
+	color: #4c4c4c;
+}
 .main-link .glyphicon {
 	font-size: 16px;
 }
@@ -150,6 +156,11 @@ body {
 	color: #fff;
 	font-size: 26px;
 	margin: 10px 0;
+}
+.additional-info .glyphicon {
+	font-size: 18px;
+	display: inline-block;
+	margin-left: 10px;
 }
 .weather-details {
 	margin: 70px 0 20px;

@@ -6,11 +6,13 @@
 		November 17, 2015
 	</div>
 	<div class="main-link">
-		See Today's Weather
-		<span class="glyphicon glyphicon-chevron-right"></span>
+		<a href="<?php echo URL_WITH_INDEX_FILE; ?>home/today">
+			See Today's Weather
+			<span class="glyphicon glyphicon-chevron-right"></span>
+		</a>
 	</div>
 
-	<div class="welcome text-center">Welcome, Jane!</div>
+	<div class="welcome text-center">Welcome, <?php echo $user->First_Name ?>!</div>
 	<div class="important-info text-center">
 		Monday 11:00 AM - 2:00 PM
 		<span class="glyphicon glyphicon-pencil"></span>

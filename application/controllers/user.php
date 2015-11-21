@@ -59,7 +59,7 @@ class User
 			$unique = true;
 		}
 
-		var_export($unique);
+		echo json_encode($unique);
 	}
 
 	public function save()
