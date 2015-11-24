@@ -1,19 +1,29 @@
 /***** Global Settings *****/
 
+html {
+	font-size: 100%;
+}
+@media (max-width: 991px) {
+	html {
+		font-size: 90%;
+	}
+}
+
 body {
 	background-image: url("../img/bg.png");
 	background-repeat: repeat-x;
 	background-position: left top;
 	background-color: #fff096;
 	font-family: "Delius","Helvetica Neue",Helvetica,Arial,sans-serif;
-	font-size: 16px;
+	font-size: 1rem;
 	color: #4c4c4c;
 }
 
 .navbar-inverse {
+	min-width: 360px;
 	background-image: url("../img/navbar-bg.png");
 	background-repeat: repeat-x;
-	background-position: left bottom;
+	background-position: left top;
 	background-color: transparent;
 	border-color: #fff;
 }
@@ -25,26 +35,73 @@ body {
 	background-image: none;
 	background-color: transparent;
 }
-.navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-brand:focus,
-.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus,
+.navbar-inverse .navbar-brand:hover,
+.navbar-inverse .navbar-brand:focus,
+.navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:focus,
 .navbar-inverse .navbar-nav > .open > a,
-.navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
+.navbar-inverse .navbar-nav > .open > a:hover,
+.navbar-inverse .navbar-nav > .open > a:focus {
 	color: #4c4c4c;
 	background-color: transparent;
 }
 .navbar-inverse .navbar-brand {
-	font-size: 30px;
+	font-size: 1.875rem;
 	font-weight: bold;
 }
 .navbar-inverse .navbar-nav > li > a {
-	font-size: 20px;
+	font-size: 1.25rem;
 	font-weight: bold;
 }
+.navbar-inverse .navbar-toggle {
+	border-color: #fff;
+	float: left;
+	margin-left: 15px;
+	margin-right: 0;
+}
+.navbar-inverse .navbar-toggle:hover,
+.navbar-inverse .navbar-toggle:focus {
+	background-color: #4c4c4c;
+}
+.navbar-inverse .navbar-collapse,
+.navbar-inverse .navbar-form {
+	border-color: #fff;
+}
+@media (max-width: 767px) {
+	.navbar-inverse {
+		background-color: #fff;
+	}
+	.navbar-inverse .navbar-nav > li > a,
+	.navbar-inverse .navbar-nav > .open > a,
+	.navbar-inverse .navbar-nav .open .dropdown-menu > li > a,
+	.navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover,
+	.navbar-inverse .navbar-nav .open .dropdown-menu > li > a:focus {
+		color: #4c4c4c;
+	}
+}
 .dropdown-menu {
-	font-size: 16px;
+	font-size: 1rem;
 }
 .dropdown-menu > li > a {
 	color: #4c4c4c;
+}
+
+#navbar-mobile {
+	font-size: 1.125rem;
+	font-weight: bold;	
+}
+#navbar-mobile a {
+	font-size: 1.125rem;
+	font-weight: normal;
+}
+#navbar-mobile .user-name {
+	padding: 10px 15px;
+	line-height: 20px;
+}
+@media (min-width: 768px) {
+	#navbar-mobile {
+		display: none !important;
+	}
 }
 
 .page-header {
@@ -59,6 +116,11 @@ body {
 	border-color: #fff;
 }
 
+@media screen and (max-width: 767px) {
+	.table-responsive {
+		border: none;
+	}
+}
 .table > thead > tr > th {
 	text-transform: uppercase;
 	border-bottom: 1px solid #fff !important;
@@ -72,7 +134,7 @@ body {
 }
 
 .form-control {
-	font-size: 15px;
+	font-size: 1rem;
 }
 
 /***** Login Page *****/
@@ -112,19 +174,27 @@ body {
 
 /***** Weather Pages *****/
 .location-search {
-	margin-left: 60px;
+	width: 30%;
+	position: absolute;
+	left: 35%;
+	text-align: center;
 }
 .location-search input {
-	width: 400px !important;
+	width: 250px !important;
+}
+@media (max-width: 991px) {
+	.location-search input {
+		width: 200px !important;
+	}
 }
 .location {
 	color: #fff;
-	font-size: 17px;
+	font-size: 1.125rem;
 }
 .main-link {
 	color: #fff;
 	text-transform: uppercase;
-	font-size: 17px;
+	font-size: 1.125rem;
 	margin-top: 30px;
 }
 .main-link a {
@@ -134,40 +204,70 @@ body {
 	color: #4c4c4c;
 }
 .main-link .glyphicon {
-	font-size: 16px;
+	font-size: 1rem;
 }
 .welcome {
 	color: #fff;
-	font-size: 32px;
-	margin: 50px 0 10px;
+	font-size: 2rem;
+	margin: 40px 0 10px;
 }
 .important-info {
 	color: #fff;
-	font-size: 36px;
+	font-size: 2.25rem;
 	font-weight: bold;
 	margin: 10px 0;
 }
 .important-info .glyphicon {
-	font-size: 22px;
+	font-size: 1.5rem;
 	display: inline-block;
 	margin-left: 15px;
 }
 .additional-info {
 	color: #fff;
-	font-size: 26px;
+	font-size: 1.625rem;
 	margin: 10px 0;
 }
 .additional-info .glyphicon {
-	font-size: 18px;
+	font-size: 1.125rem;
 	display: inline-block;
 	margin-left: 10px;
 }
 .weather-details {
-	margin: 70px 0 20px;
+	margin: 60px 0 20px;
 }
 .weather-details .table {
 	margin-bottom: 0;
 }
+@media (max-width: 767px) {
+	.main-link {
+		display: none;
+	}
+	.welcome {
+		font-size: 1.375rem;
+		margin: 30px 0 8px;
+	}
+	.important-info {
+		font-size: 1.5rem;
+		margin: 8px 0;
+	}
+	.important-info .glyphicon {
+		font-size: 1.25rem;
+		margin-left: 8px;
+	}
+	.additional-info {
+		font-size: 1.25rem;
+		margin: 8px 0;
+	}
+	.additional-info .glyphicon {
+		font-size: 1rem;
+		margin-left: 8px;
+	}
+	.weather-details {
+		margin: 30px 0 10px;
+	}
+}
+
+
 .weather-icon {
 	height: 25px;
 	width: 25px;

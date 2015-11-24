@@ -99,21 +99,18 @@ if (is_numeric($userID) && in_array(strtolower($activeView), explode(",", "user,
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
-				<?php if (is_numeric($userID)) { ?>
-					<button class="navbar-toggle collapsed" aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" type="button">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-				<?php } ?>
+				<button class="navbar-toggle collapsed" aria-controls="navbar" aria-expanded="false" data-target="#navbar-mobile" data-toggle="collapse" type="button">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
 				<a class="navbar-brand" href="<?php echo URL_WITH_INDEX_FILE; ?>">
 					My Weather Buddy
 				</a>
 			</div>
 
 			<?php if (!$settingsNav) { ?>
-				<div class="navbar-form navbar-left location-search">
+				<div class="navbar-form navbar-left location-search hidden-xs">
 					<div class="input-group">
 						<input type="text" class="form-control" placeholder="Search city or zip" />
 						<span class="input-group-addon">
@@ -139,6 +136,33 @@ if (is_numeric($userID) && in_array(strtolower($activeView), explode(",", "user,
 									<a href="<?php echo URL_WITH_INDEX_FILE; ?>user/logout">Logout</a>
 								</li>
 							</ul>
+						</li>
+					<?php }
+					else { ?>
+						<li>
+							<a href="<?php echo URL_WITH_INDEX_FILE; ?>user">Login</a>
+						</li>
+					<?php } ?>
+				</ul>
+			</div>
+
+			<div id="navbar-mobile" class="collapse">
+				<ul class="nav navbar-nav">
+					<?php if (is_numeric($userID)) { ?>
+						<li class="user-name">
+							<?php echo $user->First_Name . " " . $user->Last_Name ?>
+						</li>
+						<li>
+							<a href="<?php echo URL_WITH_INDEX_FILE; ?>home/today">Today's Weather</a>
+						</li>
+						<li>
+							<a href="<?php echo URL_WITH_INDEX_FILE; ?>home/scheduled">Personalized Weather</a>
+						</li>
+						<li>
+							<a href="<?php echo URL_WITH_INDEX_FILE; ?>user">Settings</a>
+						</li>
+						<li>
+							<a href="<?php echo URL_WITH_INDEX_FILE; ?>user/logout">Logout</a>
 						</li>
 					<?php }
 					else { ?>
