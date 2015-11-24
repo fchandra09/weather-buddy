@@ -2,8 +2,8 @@
 
 <div class="container">
 	<div class="location">
-		Champaign, IL 61820<br/>
-		November 17, 2015
+		<span id="location-text">Champaign, IL 61820</span><br/>
+		<span id="date-text"><?php echo date('F d, Y', time()); ?></span>
 	</div>
 
 	<?php if (is_numeric($userID)) { ?>

@@ -2,8 +2,8 @@
 
 <div class="container">
 	<div class="location">
-		Champaign, IL 61820<br/>
-		November 17, 2015
+		<span id="location-text">Champaign, IL 61820</span><br/>
+		<span id="date-text"><?php echo date('F d, Y', time()); ?></span>
 	</div>
 	<div class="main-link">
 		<a href="<?php echo URL_WITH_INDEX_FILE; ?>home/today">
