@@ -153,21 +153,36 @@ if (is_numeric($userID) && in_array(strtolower($activeView), explode(",", "user,
 							<?php echo $user->First_Name . " " . $user->Last_Name ?>
 						</li>
 						<li>
-							<a href="<?php echo URL_WITH_INDEX_FILE; ?>home/today">Today's Weather</a>
+							<a href="<?php echo URL_WITH_INDEX_FILE; ?>home/today">
+								Today's Weather
+								<span class="glyphicon glyphicon-chevron-right"></span>
+							</a>
 						</li>
 						<li>
-							<a href="<?php echo URL_WITH_INDEX_FILE; ?>home/scheduled">Personalized Weather</a>
+							<a href="<?php echo URL_WITH_INDEX_FILE; ?>home/scheduled">
+								Personalized Weather
+								<span class="glyphicon glyphicon-chevron-right"></span>
+							</a>
 						</li>
 						<li>
-							<a href="<?php echo URL_WITH_INDEX_FILE; ?>user">Settings</a>
+							<a href="<?php echo URL_WITH_INDEX_FILE; ?>user">
+								Settings
+								<span class="glyphicon glyphicon-chevron-right"></span>
+							</a>
 						</li>
 						<li>
-							<a href="<?php echo URL_WITH_INDEX_FILE; ?>user/logout">Logout</a>
+							<a href="<?php echo URL_WITH_INDEX_FILE; ?>user/logout">
+								Logout
+								<span class="glyphicon glyphicon-chevron-right"></span>
+							</a>
 						</li>
 					<?php }
 					else { ?>
 						<li>
-							<a href="<?php echo URL_WITH_INDEX_FILE; ?>user">Login</a>
+							<a href="<?php echo URL_WITH_INDEX_FILE; ?>user">
+								Login
+								<span class="glyphicon glyphicon-chevron-right"></span>
+							</a>
 						</li>
 					<?php } ?>
 				</ul>
