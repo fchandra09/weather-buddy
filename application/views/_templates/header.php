@@ -97,7 +97,7 @@ if (is_numeric($userID) && in_array(strtolower($activeView), explode(",", "user,
 <body>
 	<!-- top bar -->
 	<nav class="navbar navbar-inverse navbar-fixed-top">
-		<div class="container">
+		<div class="container" style="position: relative;">
 			<div class="navbar-header">
 				<button class="navbar-toggle collapsed" aria-controls="navbar" aria-expanded="false" data-target="#navbar-mobile" data-toggle="collapse" type="button">
 					<span class="icon-bar"></span>
@@ -152,6 +152,16 @@ if (is_numeric($userID) && in_array(strtolower($activeView), explode(",", "user,
 						<li class="user-name">
 							<?php echo $user->First_Name . " " . $user->Last_Name ?>
 						</li>
+						<?php if (!$settingsNav) { ?>
+							<li class="location-search-mobile">
+								<div class="input-group">
+									<input type="text" class="form-control" placeholder="Search city or zip" />
+									<span class="input-group-addon">
+										<span class="glyphicon glyphicon-search"></span>
+									</span>
+								</div>
+							</li>
+						<?php } ?>
 						<li>
 							<a href="<?php echo URL_WITH_INDEX_FILE; ?>home/today">
 								Today's Weather

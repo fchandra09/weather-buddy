@@ -100,9 +100,13 @@ body {
 #navbar-mobile .glyphicon {
 	font-size: 1rem;
 }
-#navbar-mobile .user-name {
+#navbar-mobile .user-name,
+#navbar-mobile .location-search-mobile {
 	padding: 10px 15px;
 	line-height: 20px;
+}
+#navbar-mobile .location-search-mobile {
+	font-weight: normal;
 }
 @media (min-width: 768px) {
 	#navbar-mobile {
@@ -188,11 +192,17 @@ body {
 .location-search input {
 	width: 250px !important;
 }
+.location-search .input-group-addon,
+.location-search-mobile .input-group-addon {
+	cursor: pointer;
+}
 @media (max-width: 991px) {
-	.location-search input {
+	.location-search input,
+	.location-search-mobile .input-group {
 		width: 200px !important;
 	}
 }
+
 .location {
 	color: #fff;
 	font-size: 1.125rem;
