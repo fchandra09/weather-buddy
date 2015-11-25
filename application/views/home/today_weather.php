@@ -36,16 +36,16 @@
 
 	<table class="table-panel weather-details">
 		<tr class="table-panel-tabs">
-			<td id="hourly-tab" class="table-panel-tab active" width="1%">
+			<td id="hourly-tab" class="table-panel-tab active">
 				Hourly
 			</td>
-			<td id="future-tab" class="table-panel-tab" width="1%">
+			<td id="future-tab" class="table-panel-tab">
 				5-Day
 			</td>
 			<td></td>
 		</tr>
 		<tr class="table-panel-content">
-			<td colspan="100%">
+			<td colspan="3">
 				<div class="table-responsive">
 					<table id="hourly-table" class="table today-details">
 						<tbody>
