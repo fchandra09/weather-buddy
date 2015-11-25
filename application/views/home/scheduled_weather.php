@@ -1,10 +1,13 @@
 <?php if (!$this) { exit(header('HTTP/1.0 403 Forbidden')); } ?>
 
 <div class="container">
-	<div class="location">
-		<span id="location-text">Champaign, IL 61820</span><br/>
-		<span id="date-text"><?php echo date('F d, Y', time()); ?></span>
+	<div class="clearfix">
+		<div class="location">
+			<span id="location-text">Champaign, IL 61820</span><br/>
+			<span id="date-text"><?php echo date('F d, Y', time()); ?></span>
+		</div>
 	</div>
+
 	<div class="main-link">
 		<a href="<?php echo URL_WITH_INDEX_FILE; ?>home/today">
 			See Today's Weather
