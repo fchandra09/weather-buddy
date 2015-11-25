@@ -126,6 +126,52 @@ body {
 	border-color: #fff;
 }
 
+.table-panel {
+	margin-bottom: 20px;
+	border-collapse: separate;
+}
+.table-panel-tabs > td {
+	background-image: none;
+	border-top: 1px solid transparent;
+	border-bottom: 1px solid #fff;
+}
+.table-panel-tab {
+	cursor: pointer;
+	white-space: nowrap;
+	margin-right: 3px;
+	padding: 10px 15px;
+	line-height: 1.42857143;
+	color: #fff;
+}
+.table-panel-tab:hover {
+	border: 1px solid #fff;
+	border-radius: 4px 4px 0 0;
+	color: #4c4c4c;
+}
+.table-panel-tab.active {
+	border: 1px solid #fff;
+	border-bottom: none;
+	border-radius: 4px 4px 0 0;
+	cursor: default;
+	color: #4c4c4c;
+}
+.table-panel-content,
+.table-panel-tab:hover,
+.table-panel-tab.active {
+	background-image: url("../img/transparent.png");
+	background-repeat: repeat;
+	background-position: left top;
+	background-color: transparent;
+}
+.table-panel-content > td {
+	-webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
+			box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
+	border: 1px solid #fff;
+	border-radius: 0 0 4px 4px;
+	border-top: none;
+	padding: 15px;
+}
+
 @media screen and (max-width: 767px) {
 	.table-responsive {
 		border: none;
@@ -268,9 +314,6 @@ body {
 }
 .weather-details {
 	margin: 60px 0 20px;
-}
-.weather-details.today {
-	margin-top: 0;
 }
 .weather-details .table {
 	margin-bottom: 0;
