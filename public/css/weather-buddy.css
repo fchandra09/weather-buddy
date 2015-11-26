@@ -19,6 +19,10 @@ body {
 	color: #4c4c4c;
 }
 
+a:hover, a:focus {
+	text-decoration: none;
+}
+
 .navbar-inverse {
 	min-width: 360px;
 	background-image: url("../img/navbar-bg.png");
@@ -139,13 +143,10 @@ body {
 	border-bottom: 1px solid #fff;
 }
 .table-panel-tab {
-	cursor: pointer;
 	white-space: nowrap;
-	margin-right: 3px;
-	padding: 10px 15px;
-	line-height: 1.42857143;
 	color: #fff;
-	width: 79px;
+	width: 101px;
+	text-align: center;
 }
 .table-panel-tab:hover {
 	border: 1px solid #fff;
@@ -156,8 +157,25 @@ body {
 	border: 1px solid #fff;
 	border-bottom: none;
 	border-radius: 4px 4px 0 0;
-	cursor: default;
 	color: #4c4c4c;
+}
+.table-panel-tab span,
+.table-panel-tab a {
+	color: #fff;
+	display: inline-block;
+	cursor: pointer;
+	padding: 10px 15px;
+	line-height: 1.42857143;
+	font-weight: bold;
+}
+.table-panel-tab span:hover,
+.table-panel-tab a:hover {
+	color: #4c4c4c;
+}
+.table-panel-tab.active span,
+.table-panel-tab.active a {
+	color: #4c4c4c;
+	cursor: default;
 }
 .table-panel-content,
 .table-panel-tab:hover,
@@ -177,6 +195,9 @@ body {
 }
 
 @media screen and (max-width: 767px) {
+	.table-panel-tab {
+		width: 94px;
+	}
 	.table-responsive {
 		border: none;
 	}
@@ -196,6 +217,12 @@ body {
 .form-control {
 	font-size: 1rem;
 }
+.form-field label {
+	font-weight: normal;
+}
+.bootstrap-timepicker-widget table td input {
+	width: 30px;
+}
 
 /***** Login Page *****/
 
@@ -205,7 +232,6 @@ body {
 #loginContainer .col-sm-3, #loginContainer .col-sm-4 {
 	padding-right: 0;
 }
-.main-container,
 #loginDiv, #createAccountDiv {
 	-moz-border-bottom-colors: none;
 	-moz-border-left-colors: none;
@@ -217,13 +243,6 @@ body {
 	border-width: 1px;
 	border-radius: 0 0 4px 4px;
 }
-.main-container {
-	width: 1140px;
-	padding: 20px 20px 15px;
-}
-.main-container .page-header {
-	margin-top: 0;
-}
 #loginDiv {
 	padding: 20px 20px 15px 15px;
 }
@@ -232,7 +251,46 @@ body {
 	padding: 20px 20px 15px 15px;
 }
 
+/***** Settings Pages *****/
+
+.settings-container {
+	padding: 20px 20px 15px;
+}
+.settings-container .page-header {
+	margin: 3px 0 10px;
+}
+@media (min-width: 768px) {
+	.settings-container .control-label {
+		width: 250px;
+	}
+	.settings-container .form-field {
+		width: auto;
+	}
+	.settings-container .form-field input[type="text"],
+	.settings-container .form-field input[type="email"],
+	.settings-container .form-field input[type="password"],
+	.settings-container .form-field textarea {
+		width: 300px;
+	}
+	.settings-container .form-field.short input[type="text"] {
+		width: 100px;
+	}
+	.settings-container .form-button {
+		width: auto;
+		margin-left: 250px;
+	}
+}
+.column-action {
+	white-space: nowrap;
+}
+.column-action span {
+	cursor: pointer;
+	display: inline-block;
+	padding: 0 10px 0 0;
+}
+
 /***** Weather Pages *****/
+
 .location-search {
 	width: 30%;
 	position: absolute;

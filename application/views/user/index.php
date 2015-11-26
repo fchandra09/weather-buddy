@@ -8,52 +8,56 @@ else {
 }
 ?>
 
-<div class="container main-container">
-	<h2 class="page-header">User Info</h2>
+		<tr class="table-panel-content">
+			<td colspan="4">
+				<h2 class="page-header">User Info</h2>
 
-	<div class="section form-horizontal">
-		<div class="form-group">
-			<label class="col-sm-2 control-label">First Name</label>
-			<div class="col-sm-10">
-				<p class="form-control-static"><?php echo $user->First_Name ?></p>
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="col-sm-2 control-label">Last Name</label>
-			<div class="col-sm-10">
-				<p class="form-control-static"><?php echo $user->Last_Name ?></p>
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="col-sm-2 control-label">Email</label>
-			<div class="col-sm-10">
-				<p class="form-control-static"><?php echo $user->Email ?></p>
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="col-sm-2 control-label">Temperature Unit</label>
-			<div class="col-sm-10">
-				<p class="form-control-static">&deg;<?php echo $user->Temperature_Unit ?></p>
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="col-sm-2 control-label">Time Format</label>
-			<div class="col-sm-10">
-				<p class="form-control-static"><?php echo $user->Time_Format ?>-Hour</p>
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="col-sm-2 control-label">Home Screen</label>
-			<div class="col-sm-10">
-				<p class="form-control-static"><?php echo $homeScreen ?></p>
-			</div>
-		</div>
-		<div class="form-group">
-			<div class="col-sm-offset-2 col-sm-10">
-				<button type="button" id="edit" class="btn btn-default">Edit</button>
-			</div>
-		</div>
-	</div>
+				<div class="section form-horizontal">
+					<div class="form-group">
+						<label class="col-sm-2 control-label">First Name</label>
+						<div class="col-sm-10 form-field">
+							<p class="form-control-static"><?php echo $user->First_Name ?></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Last Name</label>
+						<div class="col-sm-10 form-field">
+							<p class="form-control-static"><?php echo $user->Last_Name ?></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Email</label>
+						<div class="col-sm-10 form-field">
+							<p class="form-control-static"><?php echo $user->Email ?></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Temperature Unit</label>
+						<div class="col-sm-10 form-field">
+							<p class="form-control-static">&deg;<?php echo $user->Temperature_Unit ?></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Time Format</label>
+						<div class="col-sm-10 form-field">
+							<p class="form-control-static"><?php echo $user->Time_Format ?>-Hour</p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Home Screen</label>
+						<div class="col-sm-10 form-field">
+							<p class="form-control-static"><?php echo $homeScreen ?></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10 form-button">
+							<button type="button" id="edit" class="btn btn-default">Edit</button>
+						</div>
+					</div>
+				</div>
+			</td>
+		</tr>
+	</table>
 </div>
 
 <script>

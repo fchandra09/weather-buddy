@@ -21,51 +21,55 @@ else {
 }
 ?>
 
-<div class="container main-container">
-	<h2 class="page-header"><?php echo $title; ?></h2>
-	<form id="form" method="post" action="<?php echo URL_WITH_INDEX_FILE; ?>schedule/save" class="form-horizontal">
-		<input type="hidden" id="scheduleID" name="scheduleID" value="<?php echo $scheduleID ?>" />
-		<input type="hidden" id="userID" name="userID" value="<?php echo $userID ?>" />
+		<tr class="table-panel-content">
+			<td colspan="4">
+				<h2 class="page-header"><?php echo $title; ?></h2>
+				<form id="form" method="post" action="<?php echo URL_WITH_INDEX_FILE; ?>schedule/save" class="form-horizontal">
+					<input type="hidden" id="scheduleID" name="scheduleID" value="<?php echo $scheduleID ?>" />
+					<input type="hidden" id="userID" name="userID" value="<?php echo $userID ?>" />
 
-		<div class="form-group required">
-			<label for="days" class="col-sm-2 control-label">Days</label>
-			<div class="col-sm-10">
-				<?php foreach (explode(",", "Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday") as $day) { ?>
-					<div class="checkbox">
-						<label>
-							<input type="checkbox" id="<?php echo strtolower($day); ?>" name="<?php echo strtolower($day); ?>" class="days" <?php if ($schedule->{$day} == 1) { ?>checked<?php } ?> />
-							<?php echo $day; ?>
-						</label>
+					<div class="form-group required">
+						<label for="days" class="col-sm-2 control-label">Days</label>
+						<div class="col-sm-10 form-field">
+							<?php foreach (explode(",", "Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday") as $day) { ?>
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" id="<?php echo strtolower($day); ?>" name="<?php echo strtolower($day); ?>" class="days" <?php if ($schedule->{$day} == 1) { ?>checked<?php } ?> />
+										<?php echo $day; ?>
+									</label>
+								</div>
+							<?php } ?>
+						</div>
 					</div>
-				<?php } ?>
-			</div>
-		</div>
-		<div class="form-group">
-			<label for="startTime" class="col-sm-2 control-label">Start Time</label>
-			<div class="col-sm-10">
-				<div class="input-group bootstrap-timepicker timepicker col-sm-2">
-					<input type="text" id="startTime" name="startTime" value="<?php echo $startTime ?>" class="form-control" required aria-required="true" />
-					<span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
-				</div>
-			</div>
-		</div>
-		<div class="form-group">
-			<label for="endTime" class="col-sm-2 control-label">End Time</label>
-			<div class="col-sm-10">
-				<div class="input-group bootstrap-timepicker timepicker col-sm-2">
-					<input type="text" id="endTime" name="endTime" value="<?php echo $endTime ?>" class="form-control" required aria-required="true" />
-					<span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
-				</div>
-			</div>
-		</div>
+					<div class="form-group">
+						<label for="startTime" class="col-sm-2 control-label">Start Time</label>
+						<div class="col-sm-10 form-field short">
+							<div class="input-group bootstrap-timepicker timepicker col-sm-2">
+								<input type="text" id="startTime" name="startTime" value="<?php echo $startTime ?>" class="form-control" required aria-required="true" />
+								<span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="endTime" class="col-sm-2 control-label">End Time</label>
+						<div class="col-sm-10 form-field short">
+							<div class="input-group bootstrap-timepicker timepicker col-sm-2">
+								<input type="text" id="endTime" name="endTime" value="<?php echo $endTime ?>" class="form-control" required aria-required="true" />
+								<span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+							</div>
+						</div>
+					</div>
 
-		<div class="form-group">
-			<div class="col-sm-offset-2 col-sm-10">
-				<button type="button" id="cancel" class="btn btn-default">Cancel</button>
-				<button type="submit" class="btn btn-default">Save</button>
-			</div>
-		</div>
-	</form>
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10 form-button">
+							<button type="button" id="cancel" class="btn btn-default">Cancel</button>
+							<button type="submit" class="btn btn-default">Save</button>
+						</div>
+					</div>
+				</form>
+			</td>
+		</tr>
+	</table>
 </div>
 
 <script>

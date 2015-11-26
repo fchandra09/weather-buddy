@@ -36,11 +36,11 @@
 
 	<table class="table-panel weather-details">
 		<tr class="table-panel-tabs">
-			<td id="hourly-tab" class="table-panel-tab active">
-				Hourly
+			<td class="table-panel-tab active">
+				<span id="hourly-tab" >Hourly</span>
 			</td>
-			<td id="future-tab" class="table-panel-tab">
-				5-Day
+			<td class="table-panel-tab">
+				<span id="future-tab">5-Day</span>
 			</td>
 			<td></td>
 		</tr>
@@ -160,14 +160,14 @@
 
 	toggleTab = function() {
 		if ($(this).attr('id') == 'future-tab') {
-			$('#hourly-tab').removeClass('active');
-			$('#future-tab').addClass('active');
+			$('#hourly-tab').closest('td').removeClass('active');
+			$('#future-tab').closest('td').addClass('active');
 			$('#hourly-table').hide();
 			$('#future-table').show();
 		}
 		else {
-			$('#future-tab').removeClass('active');
-			$('#hourly-tab').addClass('active');
+			$('#future-tab').closest('td').removeClass('active');
+			$('#hourly-tab').closest('td').addClass('active');
 			$('#future-table').hide();
 			$('#hourly-table').show();
 		}
