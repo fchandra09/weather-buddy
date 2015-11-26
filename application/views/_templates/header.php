@@ -26,6 +26,10 @@ if (is_numeric($userID) && in_array(strtolower($activeView), explode(",", "user,
 	$settingsNav = true;
 }
 
+$locationSearch = true;
+if ($settingsNav || strcasecmp($activeView, "user") == 0) {
+	$locationSearch = false;
+}
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -109,7 +113,7 @@ if (is_numeric($userID) && in_array(strtolower($activeView), explode(",", "user,
 				</a>
 			</div>
 
-			<?php if (!$settingsNav) { ?>
+			<?php if ($locationSearch) { ?>
 				<div class="navbar-form navbar-left location-search hidden-xs">
 					<div class="input-group">
 						<input type="text" class="form-control" placeholder="Search city or zip" />
@@ -152,16 +156,18 @@ if (is_numeric($userID) && in_array(strtolower($activeView), explode(",", "user,
 						<li class="user-name">
 							<?php echo $user->First_Name . " " . $user->Last_Name ?>
 						</li>
-						<?php if (!$settingsNav) { ?>
-							<li class="location-search-mobile">
-								<div class="input-group">
-									<input type="text" class="form-control" placeholder="Search city or zip" />
-									<span class="input-group-addon">
-										<span class="glyphicon glyphicon-search"></span>
-									</span>
-								</div>
-							</li>
-						<?php } ?>
+					<?php } ?>
+					<?php if ($locationSearch) { ?>
+						<li class="location-search-mobile">
+							<div class="input-group">
+								<input type="text" class="form-control" placeholder="Search city or zip" />
+								<span class="input-group-addon">
+									<span class="glyphicon glyphicon-search"></span>
+								</span>
+							</div>
+						</li>
+					<?php } ?>
+					<?php if (is_numeric($userID)) { ?>
 						<li>
 							<a href="<?php echo URL_WITH_INDEX_FILE; ?>home/today">
 								Today's Weather

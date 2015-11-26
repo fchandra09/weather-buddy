@@ -37,7 +37,7 @@
 	<table class="table-panel weather-details">
 		<tr class="table-panel-tabs">
 			<td class="table-panel-tab active">
-				<span id="hourly-tab" >Hourly</span>
+				<span id="hourly-tab">Hourly</span>
 			</td>
 			<td class="table-panel-tab">
 				<span id="future-tab">5-Day</span>

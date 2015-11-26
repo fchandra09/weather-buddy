@@ -214,6 +214,13 @@ a:hover, a:focus {
 	padding: 15px 8px;
 }
 
+.btn-default {
+	background-image: none;
+	background-color: #f3f3f3;
+	color: #4c4c4c;
+	text-shadow: none;
+}
+
 .form-control {
 	font-size: 1rem;
 }
@@ -226,29 +233,87 @@ a:hover, a:focus {
 
 /***** Login Page *****/
 
-#loginContainer {
-	width: 500px;
+.login-container .page-header {
+	color: #fff;
+	margin-top: 10px;
+	font-size: 2.25rem;
+	font-weight: bold;
 }
-#loginContainer .col-sm-3, #loginContainer .col-sm-4 {
-	padding-right: 0;
+.login-box {
+	padding-left: 0;
 }
-#loginDiv, #createAccountDiv {
-	-moz-border-bottom-colors: none;
-	-moz-border-left-colors: none;
-	-moz-border-right-colors: none;
-	-moz-border-top-colors: none;
-	border-color: transparent #ddd #ddd;
-	border-image: none;
-	border-style: solid;
-	border-width: 1px;
-	border-radius: 0 0 4px 4px;
+.introduction-box {
+	color: #fff;
+	padding: 50px 0 0 30px;
+	font-size: 1.125rem;
 }
-#loginDiv {
-	padding: 20px 20px 15px 15px;
+#login-div,
+#create-div {
+	padding: 10px 5px 0 5px;
 }
-#createAccountDiv {
-	display: none;
-	padding: 20px 20px 15px 15px;
+#login-div .form-field,
+#create-div .form-field {
+	width: auto;
+}
+.table-panel-tab.create {
+	width: 150px;
+}
+
+@media (max-width: 767px) {
+	.introduction-box {
+		padding: 20px 5px 5px;
+		color: #4c4c4c;
+	}
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+	.login-box {
+		width: 100%;
+	}
+	.introduction-box {
+		width: 100%;
+		padding: 30px 5px 10px;
+		color: #4c4c4c;
+	}
+}
+
+@media (min-width: 768px) {
+	#login-div .control-label {
+		width: 120px;
+	}
+	#login-div .form-button {
+		width: auto;
+		margin-left: 120px;
+	}
+	#create-div .control-label {
+		width: 180px;
+	}
+	#create-div .form-button {
+		width: auto;
+		margin-left: 180px;
+	}
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+	#login-div .form-field input[type="email"],
+	#login-div .form-field input[type="password"] {
+		width: 280px;
+	}
+	#create-div .form-field input[type="text"],
+	#create-div .form-field input[type="email"],
+	#create-div .form-field input[type="password"] {
+		width: 230px;
+	}
+}
+
+@media (min-width: 768px) and (max-width: 991px), (min-width: 1200px) {
+	#login-div .form-field input[type="email"],
+	#login-div .form-field input[type="password"],
+	#create-div .form-field input[type="text"],
+	#create-div .form-field input[type="email"],
+	#create-div .form-field input[type="password"] {
+		width: 300px;
+	}
 }
 
 /***** Settings Pages *****/
