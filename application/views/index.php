@@ -34,6 +34,9 @@ $email = "";
 </script>
 
 <div class="container">
+
+	<?php echo $GLOBALS["beans"]->siteHelper->getAlertHTML(); ?>
+
 	<div id="loginContainer">
 		<ul class="nav nav-tabs">
 			<li role="presentation" class="active">

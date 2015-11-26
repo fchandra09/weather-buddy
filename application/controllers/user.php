@@ -33,7 +33,16 @@ class User
 	{
 		$errorMessage = $GLOBALS["beans"]->userService->login();
 
-		header('location: ' . URL_WITH_INDEX_FILE);
+		if ($errorMessage != "")
+		{
+			$GLOBALS["beans"]->siteHelper->setAlert("danger", $errorMessage);
+
+			header('location: ' . URL_WITH_INDEX_FILE . 'user');
+		}
+		else
+		{
+			header('location: ' . URL_WITH_INDEX_FILE);
+		}
 	}
 
 	public function logout()
@@ -46,7 +55,10 @@ class User
 	public function createAccount()
 	{
 		$GLOBALS["beans"]->userService->insertUser();
-		$this->login();
+
+		$GLOBALS["beans"]->siteHelper->setAlert("success", "Congratulations, your account has been created. Please use the form below to login.");
+
+		header('location: ' . URL_WITH_INDEX_FILE . 'user');
 	}
 
 	public function checkUniqueEmail()
