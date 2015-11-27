@@ -37,4 +37,33 @@ class Home
 		require APP . 'views/home/scheduled_weather.php';
 		require APP . 'views/_templates/footer.php';
 	}
+
+	public function setDefaultLocation($city, $region, $country, $zip, $latitude, $longitude, $timezone) {
+		$_SESSION["location"] = new stdClass();
+		$_SESSION["location"]->city = urldecode($city);
+		$_SESSION["location"]->region = urldecode($region);
+		$_SESSION["location"]->country = urldecode($country);
+		$_SESSION["location"]->zip = urldecode($zip);
+		$_SESSION["location"]->latitude = urldecode($latitude);
+		$_SESSION["location"]->longitude = urldecode($longitude);
+		$_SESSION["location"]->timezone = urldecode($timezone);
+	}
+
+	public function getDefaultLocation() {
+		$location = $GLOBALS["beans"]->siteHelper->getSession("location");
+
+		if (!is_object($location)) {
+			$_SESSION["location"] = new stdClass();
+			$_SESSION["location"]->city = "Urbana";
+			$_SESSION["location"]->region = "Illinois";
+			$_SESSION["location"]->country = "United States";
+			$_SESSION["location"]->zip = "61801";
+			$_SESSION["location"]->latitude = "40.114254";
+			$_SESSION["location"]->longitude = "-88.224818";
+			$_SESSION["location"]->timezone = "-06:00";
+		}
+
+		echo json_encode($location);
+	}
+
 }

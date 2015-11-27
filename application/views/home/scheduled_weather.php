@@ -18,7 +18,9 @@
 	<div class="welcome text-center">Welcome, <?php echo $user->First_Name ?>!</div>
 	<div class="important-info text-center">
 		Monday 11:00 AM - 2:00 PM
-		<span class="glyphicon glyphicon-pencil"></span>
+		<a id="edit-schedule" href="#" title="Edit" class="edit-link">
+			<span class="glyphicon glyphicon-pencil"></span>
+		</a>
 	</div>
 	<div class="additional-info text-center">
 		Bring / Wear: Sleeveless, Light Clothing, Umbrella

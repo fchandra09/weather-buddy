@@ -67,7 +67,7 @@
 
 	deleteFeel = function(feelID) {
 		if (confirm('Are you sure you want to delete this record?')) {
-			window.location.href = '<?php echo URL_WITH_INDEX_FILE; ?>feels/delete' + feelID;
+			window.location.href = '<?php echo URL_WITH_INDEX_FILE; ?>feels/delete/' + feelID;
 		}
 	}
 </script>

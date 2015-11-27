@@ -185,6 +185,8 @@ class Application
 			$validDestination = $validDestination || (strcasecmp("user", $this->url_controller) == 0 && strcasecmp("login", $this->url_action) == 0);
 			$validDestination = $validDestination || (strcasecmp("user", $this->url_controller) == 0 && strcasecmp("createAccount", $this->url_action) == 0);
 			$validDestination = $validDestination || (strcasecmp("user", $this->url_controller) == 0 && strcasecmp("checkUniqueEmail", $this->url_action) == 0);
+			$validDestination = $validDestination || (strcasecmp("home", $this->url_controller) == 0 && strcasecmp("setDefaultLocation", $this->url_action) == 0);
+			$validDestination = $validDestination || (strcasecmp("home", $this->url_controller) == 0 && strcasecmp("getDefaultLocation", $this->url_action) == 0);
 
 			if (!$validDestination)
 			{

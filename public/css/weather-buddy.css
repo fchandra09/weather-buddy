@@ -392,10 +392,14 @@ a:hover, a:focus {
 	font-size: 1.125rem;
 	margin-top: 30px;
 }
-.main-link a {
+.main-link a,
+.important-info a,
+.additional-info a {
 	color: #fff;
 }
-.main-link a:hover, .main-link a:focus {
+.main-link a:hover, .main-link a:focus,
+.important-info a:hover, .important-info a:focus,
+.additional-info a:hover, .additional-info a:focus {
 	color: #4c4c4c;
 }
 .main-link .glyphicon {
@@ -411,7 +415,7 @@ a:hover, a:focus {
 	font-size: 2.25rem;
 	font-weight: bold;
 }
-.important-info .glyphicon {
+.important-info .edit-link {
 	font-size: 1.5rem;
 	display: inline-block;
 	margin-left: 15px;
@@ -420,7 +424,7 @@ a:hover, a:focus {
 	color: #fff;
 	font-size: 1.625rem;
 }
-.additional-info .glyphicon {
+.additional-info .edit-link {
 	font-size: 1.125rem;
 	display: inline-block;
 	margin-left: 10px;

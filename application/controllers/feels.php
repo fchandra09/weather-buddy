@@ -39,4 +39,10 @@ class Feels
 		header('location: ' . URL_WITH_INDEX_FILE . 'feels');
 	}
 
+	public function getFeelsByTemperature($temperature) {
+		$feels = $GLOBALS["beans"]->feelService->getFeelsByTemperature($temperature);
+
+		echo json_encode($feels);
+	}
+
 }

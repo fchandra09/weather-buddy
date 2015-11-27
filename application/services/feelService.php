@@ -32,4 +32,15 @@ class FeelService extends Service
 		$this->model->deleteFeel($feelID, $userID);
 	}
 
+	public function getFeelsByTemperature($temperature)
+	{
+		$result = "";
+
+		if (is_numeric($temperature)) {
+			$result = $this->model->getFeelsByTemperature($temperature);
+		}
+
+		return $result;
+	}
+
 }

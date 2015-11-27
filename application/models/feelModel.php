@@ -110,4 +110,32 @@ class FeelModel extends Model
 		$GLOBALS["beans"]->queryHelper->executeWriteQuery($this->db, $sql, $parameters);
 	}
 
+	public function getFeelsByTemperature($temperature)
+	{
+		$sql = "SELECT Feel.*
+				FROM Feel
+				WHERE Feel.User_ID = :user_id";
+
+		if (strcasecmp($GLOBALS["beans"]->siteHelper->getSession("temperatureUnit"), "C") == 0) {
+			$sql .= " AND Feel.Min_Temperature_C <= :temperature
+						AND Feel.Max_Temperature_C >= :temperature
+					ORDER BY Feel.Min_Temperature_C, Feel.Max_Temperature_C";
+		}
+		else {
+			$sql .= " AND Feel.Min_Temperature_F <= :temperature
+						AND Feel.Max_Temperature_F >= :temperature
+					ORDER BY Feel.Min_Temperature_F, Feel.Max_Temperature_F";
+		}
+
+		$parameters = array(
+			':user_id' => $GLOBALS["beans"]->siteHelper->getSession("userID"),
+			':temperature' => $temperature
+		);
+
+		$query = $this->db->prepare($sql);
+		$query->execute($parameters);
+
+		return $query->fetchAll();
+	}
+
 }
