@@ -115,17 +115,19 @@
 				else if (time < 12) time = time+':00 AM';
 				else if (time === 12) time = time+':00 PM'
 				else time = time%12 +':00 PM';
-	
+
+				var windBearing = getWindDirection(hourly[i].windBearing);
+				var temperature = checkTemperatureUnit(hourly[i].temperature, unit);
 				$('#needSomeBODY').append(
 					'<tr><td>'+time+'</td>'+
 			            	'<td></td>'+ //icon
-			            	'<td>'+hourly[i].temperature+'&deg;'+unit+'</td>'+
-			            	'<td>'+hourly[i].apparentTemperature+'&deg;'+unit+'</td>'+
+			            	'<td>'+temperature+'&deg;'+unit+'</td>'+
+			            	'<td>'+checkTemperatureUnit(hourly[i].apparentTemperature,unit)+'&deg;'+unit+'</td>'+
 			            	'<td>'+hourly[i].precipProbability*100+'%</td>'+
 			            	'<td>'+hourly[i].humidity*100+'%</td>'+
-			            	'<td>'+hourly[i].windSpeed+'</td></tr>');
+			            	'<td>'+Math.round(hourly[i].windSpeed)+' mph '+windBearing+'</td></tr>');
 				
-			    var temp = Math.round(hourly[i].temperature).toString();
+			    var temp = Math.round(temperature).toString();
 			    allTemps.push(temp);
 		    }      
 		}
@@ -135,9 +137,6 @@
 		for (var i = 0; i < temps.length; i++){
 			getBringData(temps[i]);
 		}
-		/*if (bringText.length > 0) {
-			$('#bring-text').html('Bring / Wear: ' + bringText.join(', '));
-		}*/
 	}
 	function getStartEndTime(time){
 		var start = "";
@@ -256,20 +255,38 @@
 	
 	//Because javascript data objects need help sometimes
 	function getMonthName(monthNum){
-		var month = new Array();
-		month[0] = "January";
-		month[1] = "February";
-		month[2] = "March";
-		month[3] = "April";
-		month[4] = "May";
-		month[5] = "June";
-		month[6] = "July";
-		month[7] = "August";
-		month[8] = "September";
-		month[9] = "October";
-		month[10] = "November";
-		month[11] = "December";
+		var month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 		return month[monthNum];
 	}
+
+	function getWindDirection(windBearing){
+		var dir = '';
+		if (windBearing >= 348.75 || windBearing <= 11.25) dir = 'N';
+		else if (windBearing > 11.25 && windBearing <= 33.75) dir = 'NNE';
+		else if (windBearing > 33.75 && windBearing <= 56.25) dir = 'NE';
+		else if (windBearing > 56.25 && windBearing <= 78.75) dir = 'ENE';
+		else if (windBearing > 78.75 && windBearing <= 101.25) dir = 'E';
+		else if (windBearing > 101.25 && windBearing <= 123.75) dir = 'ESE';
+		else if (windBearing > 123.75 && windBearing <= 146.25) dir = 'SE';
+		else if (windBearing > 146.25 && windBearing <= 168.75) dir = 'SSE';
+		else if (windBearing > 168.75 && windBearing <= 191.25) dir = 'S';
+		else if (windBearing > 191.25 && windBearing <= 213.75) dir = 'SSW';
+		else if (windBearing > 213.75 && windBearing <= 236.25) dir = 'SW';
+		else if (windBearing > 236.25 && windBearing <= 258.75) dir = 'WSW';
+		else if (windBearing > 258.75 && windBearing <= 281.25) dir = 'W';
+		else if (windBearing > 281.25 && windBearing <= 303.75) dir = 'WNW';
+		else if (windBearing > 303.75 && windBearing <= 326.25) dir = 'NW';
+		else dir = 'NNW';
+		return dir;
+	}
+	//check the unit and convert to celcius if needed
+	checkTemperatureUnit = function(temperature, unit){
+		var newTemp = temperature;
+		if (unit == 'C'){
+			newTemp = (temperature - 32)*5/9;
+		}
+		return Math.round(newTemp);
+	}
+
 
 </script>

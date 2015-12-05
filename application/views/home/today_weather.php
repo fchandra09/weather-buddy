@@ -4,7 +4,7 @@
 	<div class="clearfix">
 		<div class="location">
 			<span id="location-text"></span><br/>
-			<span id="date-text"></span>
+			<span id="date-text"><?php echo date('F d, Y', time()); ?></span>
 		</div>
 		<div class="share">
 			Share
@@ -31,13 +31,13 @@
 			</a>
 			<span id="bring-text"></span>
 		<?php } ?>
-		Sunrise <span id="sunrise-text"></span>, Sunset <span id="sunset-text"></span>
+		Sunrise: <span id="sunrise-text"></span>, Sunset: <span id="sunset-text"></span>
 	</div>
 
 	<table class="table-panel weather-details">
 		<tr class="table-panel-tabs">
 			<td class="table-panel-tab active">
-				<span id="hourly-tab">3-Hour</span>
+				<span id="hourly-tab">Hourly</span>
 			</td>
 			<td class="table-panel-tab">
 				<span id="future-tab">5-Day</span>
@@ -199,8 +199,9 @@
 				}
 				$('#location-text').html(locationText);
 
-				populate3HourData(result, apiUnit, unit);
+				//populate3HourData(result, apiUnit, unit);
 				populate5DayData(result, apiUnit, unit);
+				populateHourlyData(result, unit);
 			}
 		});
 	});
@@ -237,7 +238,69 @@
 			method: 'POST'
 		});
 	}
+	populateHourlyData = function(result, unit){
+		$.getJSON("https://api.forecast.io/forecast/0e5e272af26d7da6b94ffd58bf3b7f7a/"+result.latitude+","+result.longitude+"?callback=?", function(data){
+			console.log("FORECAST DATA");
+			console.log(data);
+			if(data){
+				//fill sunrise and sunset times:
+				var sunriseTime = convertUnixToHumanTime(data.daily.data[0].sunriseTime); 
+				var sunsetTime = convertUnixToHumanTime(data.daily.data[0].sunsetTime);  
+				console.log(sunriseTime + " " + sunsetTime);
+				$('#sunrise-text').html(sunriseTime);
+				$('#sunset-text').html(sunsetTime);
 
+				//Current temperature
+				var currTemperature = checkTemperatureUnit(data.hourly.data[0].temperature, unit);
+				$('#current-temperature-text').html(currTemperature + '&deg;' + unit);
+				<?php if (is_numeric($userID)) { ?>
+					populateFeelData(currTemperature);
+				<?php } ?>
+
+				//fill hourly data for next 5 hours
+				for (var i = 0; i < 5; i++){
+					var temperature = checkTemperatureUnit(data.hourly.data[i].temperature, unit);
+					var apparentTemperature = checkTemperatureUnit(data.hourly.data[i].apparentTemperature, unit);
+					var time = convertUnixToHumanTime(data.hourly.data[i].time);
+					var windDirection = getWindDirection(data.hourly.data[i].windBearing); //convert to direction! 
+					var icon = data.hourly.data[i].icon; 
+					var iconClass = getIconClass(iconClass, data.hourly.data[i].time, data.daily.data[0].sunsetTime, true)
+
+					//set the html for all the boxes
+					$('#time-' + (i+1)).html(time);
+					$('#temperature-' + (i+1)).html(temperature + '&deg;' + unit);
+					$('#hourly-icon-' + (i+1)).find('div').removeClass().addClass('weather-icon').addClass(iconClass);
+					$('#feels-like-' + (i+1)).html(apparentTemperature + '&deg;' + unit); 
+					$('#precipitation-' + (i+1)).html(data.hourly.data[i].precipProbability + '%');
+					$('#humidity-' + (i+1)).html(data.hourly.data[i].humidity*100 + '%');
+					$('#wind-speed-' + (i+1)).html(Math.round(data.hourly.data[i].windSpeed) + ' mph ' + windDirection);
+				}
+			}
+		});	
+	}
+	//darksky api returns all times in unix time - so convert them! 
+	convertUnixToHumanTime = function(unixTime){
+		var hour = new Date(unixTime*1000).getHours();
+		var minute = new Date(unixTime*1000).getMinutes();
+		if (minute < 10) minute = '0' + minute;
+		var time = hour;
+		if (time === 0) time = 12 + ':' + minute + 'AM';
+		else if (time < 12) time = time + ':' + minute + ' AM';
+		else if (time === 12) time = time + ':' + minute + 'PM'
+		else time = time%12 + ':' + minute + 'PM';
+		return time;
+	}
+
+	//check the unit and convert to celcius if needed
+	checkTemperatureUnit = function(temperature, unit){
+		var newTemp = temperature;
+		if (unit == 'C'){
+			newTemp = (temperature - 32)*5/9;
+		}
+		return Math.round(newTemp);
+	}
+
+	//won't be using this one...
 	populate3HourData = function(result, apiUnit, unit) {
 		$.ajax({
 			url: 'http://api.openweathermap.org/data/2.5/forecast',
@@ -267,7 +330,7 @@
 					var i = index + 1;
 					var time = convertDateTimeStringToDate($(element).attr('from'));
 					var temperature = Math.round(parseFloat($(element).find('temperature').attr('value'))).toString();
-					var iconClass = getIconClass($(element).find('symbol').attr('number'), time, sunsetTime);
+					var iconClass = getIconClass($(element).find('symbol').attr('number'), time, sunsetTime, false);
 					var precipitation = getPrecipitationPercentage($(element).find('precipitation').attr('value'));
 					var humidity = $(element).find('humidity').attr('value');
 					var windSpeed = Math.round(parseFloat($(element).find('windSpeed').attr('mps')) * 3600 / 1609.244);
@@ -318,7 +381,7 @@
 					var date = convertDateStringToDate($(element).attr('day'));
 					var minTemperature = Math.round(parseFloat($(element).find('temperature').attr('min'))).toString();
 					var maxTemperature = Math.round(parseFloat($(element).find('temperature').attr('max'))).toString();
-					var iconClass = getIconClass($(element).find('symbol').attr('number'), '', '');
+					var iconClass = getIconClass($(element).find('symbol').attr('number'), '', '', false);
 
 					$('#day-' + i).html(formatDay(date));
 					$('#high-low-' + i).html(maxTemperature + '&deg;' + unit + ' / ' + minTemperature + '&deg;' + unit);
@@ -397,34 +460,55 @@
 		return new Date(parseInt(dateArray[0]), parseInt(dateArray[1]) - 1, parseInt(dateArray[2]), 0, 0, 0, 0);
 	}
 
-	getIconClass = function(conditionID, currentTime, sunsetTime) {
+	getIconClass = function(conditionID, currentTime, sunsetTime, darksky) {
 		var iconClass = '';
-
-		switch (conditionID.substr(0,1)) {
-			case '2':
-				iconClass = 'storm';
-				break;
-			case '3', '5':
-				iconClass = 'rain';
-				break;
-			case '6':
-				iconClass = 'snow';
-				break;
+		console.log(conditionID);
+		if(!darksky){
+			switch (conditionID.substr(0,1)) {
+				case '2':
+					iconClass = 'storm';
+					break;
+				case '3', '5':
+					iconClass = 'rain';
+					break;
+				case '6':
+					iconClass = 'snow';
+					break;
+			}
+			//for openweatherapi: numerical
+			if (iconClass == '') {
+				if (conditionID == '960' && conditionID == '961') {
+					iconClass = 'storm';
+				}
+				else if (conditionID.substr(0,2) == '80' && conditionID != '800') {
+					iconClass = 'cloud';
+				}
+				else if (currentTime != '' && sunsetTime != '' & currentTime > sunsetTime) {
+					iconClass = 'moon';
+				}
+				else {
+					iconClass = 'sun';
+				}
+			}
 		}
-
-		if (iconClass == '') {
-			if (conditionID == '960' && conditionID == '961') {
-				iconClass = 'storm';
-			}
-			else if (conditionID.substr(0,2) == '80' && conditionID != '800') {
-				iconClass = 'cloud';
-			}
-			else if (currentTime != '' && sunsetTime != '' & currentTime > sunsetTime) {
+		//for darksky: clear-day, clear-night, rain, snow, sleet, wind, fog, cloudy, partly-cloudy-day, or partly-cloudy-night
+		if (darksky && iconClass == '') {
+			if (conditionID == 'clear-night' || currentTime > sunsetTime){
 				iconClass = 'moon';
 			}
-			else {
-				iconClass = 'sun';
+			else if (conditionID == 'rain'){
+				iconClass = 'rain';
+			} 
+			else if (conditionID == 'snow' || conditionID == 'sleet'){
+				iconClass = 'snow';
 			}
+			//else if (conditionID == 'wind'){
+			//	iconClass = 'wind';
+			//} 
+			else if (conditionID == 'fog' || conditionID == 'cloudy' || conditionID == 'partly-cloudy-night' || conditionID == 'partly-cloudy-day'){
+				iconClass = 'cloud';
+			}
+			else iconClass = 'sun';
 		}
 
 		return iconClass;
@@ -471,7 +555,7 @@
 		return dayNames[dateTime.getDay()];
 	}
 
-	/* Fake precipitation data since the free API does not have precipitation percentage available */
+	/* Fake precipitation data since the free API does not have precipitation percentage available - shouldn't need this anymore*/
 	getPrecipitationPercentage = function(value) {
 		var result = 0;
 
@@ -483,5 +567,25 @@
 		}
 
 		return result;
+	}
+	function getWindDirection(windBearing){
+		var dir = '';
+		if (windBearing >= 348.75 || windBearing <= 11.25) dir = 'N';
+		else if (windBearing > 11.25 && windBearing <= 33.75) dir = 'NNE';
+		else if (windBearing > 33.75 && windBearing <= 56.25) dir = 'NE';
+		else if (windBearing > 56.25 && windBearing <= 78.75) dir = 'ENE';
+		else if (windBearing > 78.75 && windBearing <= 101.25) dir = 'E';
+		else if (windBearing > 101.25 && windBearing <= 123.75) dir = 'ESE';
+		else if (windBearing > 123.75 && windBearing <= 146.25) dir = 'SE';
+		else if (windBearing > 146.25 && windBearing <= 168.75) dir = 'SSE';
+		else if (windBearing > 168.75 && windBearing <= 191.25) dir = 'S';
+		else if (windBearing > 191.25 && windBearing <= 213.75) dir = 'SSW';
+		else if (windBearing > 213.75 && windBearing <= 236.25) dir = 'SW';
+		else if (windBearing > 236.25 && windBearing <= 258.75) dir = 'WSW';
+		else if (windBearing > 258.75 && windBearing <= 281.25) dir = 'W';
+		else if (windBearing > 281.25 && windBearing <= 303.75) dir = 'WNW';
+		else if (windBearing > 303.75 && windBearing <= 326.25) dir = 'NW';
+		else dir = 'NNW';
+		return dir;
 	}
 </script>
