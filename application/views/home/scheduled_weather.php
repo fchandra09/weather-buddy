@@ -226,11 +226,6 @@
 			//console.log("AM");
 			var endMin = end.substr(3,2);
 			end = end.substr(0,2);
-			if (endMin != '00') {
-				end = parseInt(end) + 1;
-				end = '00' + end;
-				end = end.substr(end.length - 2, 2);
-			}
 			today = new Date(); //get today's date
 			myDate = getMonthName(today.getMonth()) + ' ' + today.getDate() + ', ' + today.getFullYear() + ' ' + end + ':00:00';
 			endUnix = Math.round((new Date(myDate)).getTime() / 1000);
@@ -242,14 +237,6 @@
 				endnum = endnum + 12;
 			}
 			endnum = String(endnum); //convert start back to 24hr time
-			if (endMin != '00') {
-				endnum = parseInt(endnum) + 1;
-				if (endnum > 23) {
-					endnum = 0;
-				}
-				endnum = '00' + endnum;
-				endnum = endnum.substr(endnum.length - 2, 2);
-			}
 			today = new Date(); //get today's date
 			myDate = getMonthName(today.getMonth()) + ' ' + today.getDate() + ', ' + today.getFullYear() + ' ' + endnum + ':00:00';
 			endUnix = Math.round((new Date(myDate)).getTime() / 1000);
