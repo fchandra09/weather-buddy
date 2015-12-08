@@ -206,41 +206,49 @@
 		//convert into UNIX time for fun (jk we need to be able to get the right hours)
 		if (start.substring(start.length-2, start.length) === "AM"){
 			//console.log("AM");
-			start = start.substring(0,2);
+			start = start.substr(0,2);
 			today = new Date(); //get today's date
 			myDate = getMonthName(today.getMonth()) + ' ' + today.getDate() + ', ' + today.getFullYear() + ' ' + start + ':00:00';
 			startUnix = Math.round((new Date(myDate)).getTime() / 1000);
 		} else {
 			//console.log("PM");
-			startnum = String(Number(start.substring(0,2))+12); //convert start back to 24hr time
+			startnum = Number(start.substr(0,2));
+			if (startnum != 12) {
+				startnum = startnum + 12;
+			}
+			startnum = String(startnum); //convert start back to 24hr time
 			today = new Date(); //get today's date
-			myDate = getMonthName(today.getMonth()) + ' ' + today.getDate() + ', ' + today.getFullYear() + ' ' + startNum + ':00:00';
+			myDate = getMonthName(today.getMonth()) + ' ' + today.getDate() + ', ' + today.getFullYear() + ' ' + startnum + ':00:00';
 			startUnix = Math.round((new Date(myDate)).getTime() / 1000);
 		}
 		//same thing for end - repeating code is bad I know, I'll fix later if time
 		if (end.substring(end.length-2, end.length) === "AM"){
 			//console.log("AM");
-			var endMin = end.substring(3,2);
-			end = end.substring(0,2);
+			var endMin = end.substr(3,2);
+			end = end.substr(0,2);
 			if (endMin != '00') {
 				end = parseInt(end) + 1;
 				end = '00' + end;
-				end = end.substring(end.length - 2, 2);
+				end = end.substr(end.length - 2, 2);
 			}
 			today = new Date(); //get today's date
 			myDate = getMonthName(today.getMonth()) + ' ' + today.getDate() + ', ' + today.getFullYear() + ' ' + end + ':00:00';
 			endUnix = Math.round((new Date(myDate)).getTime() / 1000);
 		} else {
 			//console.log("PM");
-			var endMin = end.substring(3,2);
-			endnum = String(Number(end.substring(0,2))+12); //convert start back to 24hr time
+			var endMin = end.substr(3,2);
+			endnum = Number(end.substr(0,2));
+			if (endnum != 12) {
+				endnum = endnum + 12;
+			}
+			endnum = String(endnum); //convert start back to 24hr time
 			if (endMin != '00') {
 				endnum = parseInt(endnum) + 1;
 				if (endnum > 23) {
 					endnum = 0;
 				}
 				endnum = '00' + endnum;
-				endnum = endnum.substring(end.length - 2, 2);
+				endnum = endnum.substr(endnum.length - 2, 2);
 			}
 			today = new Date(); //get today's date
 			myDate = getMonthName(today.getMonth()) + ' ' + today.getDate() + ', ' + today.getFullYear() + ' ' + endnum + ':00:00';
