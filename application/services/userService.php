@@ -15,7 +15,7 @@ class UserService extends Service
 
 	public function insertUser()
 	{
-		$this->model->insertUser();
+		return $this->model->insertUser();
 	}
 
 	public function updateUser()

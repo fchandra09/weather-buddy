@@ -54,7 +54,8 @@ class User
 
 	public function createAccount()
 	{
-		$GLOBALS["beans"]->userService->insertUser();
+		$userID = $GLOBALS["beans"]->userService->insertUser();
+		$GLOBALS["beans"]->feelService->presetDefaultFeels($userID);
 
 		$GLOBALS["beans"]->siteHelper->setAlert("success", "Congratulations, your account has been created. Please use the form below to login.");
 

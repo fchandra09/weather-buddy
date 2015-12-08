@@ -35,27 +35,27 @@ class FeelModel extends Model
 		return $GLOBALS["beans"]->queryHelper->getSingleRowObject($this->db, $sql, $parameters);
 	}
 
-	public function insertFeel() {
+	public function insertFeel($userID, $description, $bringWear, $temperatureUnit, $minTemperature, $maxTemperature) {
 		$sql = "INSERT INTO Feel (User_ID, Min_Temperature_C, Max_Temperature_C, Min_Temperature_F, Max_Temperature_F, Description, Bring_Wear, Created_On, Modified_On)
 				VALUES (:user_id, :min_temperature_c, :max_temperature_c, :min_temperature_f, :max_temperature_f, :description, :bring_wear, NOW(), NOW())";
 
 		$parameters = array(
-				":user_id" => $_POST["userID"],
-				":description" => $_POST["description"],
-				":bring_wear" => $_POST["bringWear"]
+				":user_id" => $userID,
+				":description" => $description,
+				":bring_wear" => $bringWear
 		);
 		
-		if (strcasecmp($GLOBALS["beans"]->siteHelper->getSession("temperatureUnit"), "C") == 0) {
-			$parameters[":min_temperature_c"]= $_POST["minTemperature"];
-			$parameters[":max_temperature_c"] = $_POST["maxTemperature"];
-			$parameters[":min_temperature_f"] = $GLOBALS["beans"]->mathHelper->convertCelsiusToFahrenheit($_POST["minTemperature"]);
-			$parameters[":max_temperature_f"] = $GLOBALS["beans"]->mathHelper->convertCelsiusToFahrenheit($_POST["maxTemperature"]);
+		if (strcasecmp($temperatureUnit, "C") == 0) {
+			$parameters[":min_temperature_c"]= $minTemperature;
+			$parameters[":max_temperature_c"] = $maxTemperature;
+			$parameters[":min_temperature_f"] = $GLOBALS["beans"]->mathHelper->convertCelsiusToFahrenheit($minTemperature);
+			$parameters[":max_temperature_f"] = $GLOBALS["beans"]->mathHelper->convertCelsiusToFahrenheit($maxTemperature);
 		}
 		else {
-			$parameters[":min_temperature_f"]= $_POST["minTemperature"];
-			$parameters[":max_temperature_f"] = $_POST["maxTemperature"];
-			$parameters[":min_temperature_c"] = $GLOBALS["beans"]->mathHelper->convertFahrenheitToCelsius($_POST["minTemperature"]);
-			$parameters[":max_temperature_c"] = $GLOBALS["beans"]->mathHelper->convertFahrenheitToCelsius($_POST["maxTemperature"]);
+			$parameters[":min_temperature_f"]= $minTemperature;
+			$parameters[":max_temperature_f"] = $maxTemperature;
+			$parameters[":min_temperature_c"] = $GLOBALS["beans"]->mathHelper->convertFahrenheitToCelsius($minTemperature);
+			$parameters[":max_temperature_c"] = $GLOBALS["beans"]->mathHelper->convertFahrenheitToCelsius($maxTemperature);
 		}
 
 		return $GLOBALS["beans"]->queryHelper->executeWriteQuery($this->db, $sql, $parameters);
