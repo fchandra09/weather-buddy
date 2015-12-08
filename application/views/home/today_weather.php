@@ -232,7 +232,10 @@
 			useLocationSearch();
 		}
 	});
-	$('#back-to-default').click(function(){getDefaultLocAndPopFields();})
+	$('#back-to-default').click(function(){
+		getDefaultLocAndPopFields();
+		document.getElementById('zip-input').value = '';
+	})
 	toggleTab = function() {
 		if ($(this).attr('id') == 'future-tab') {
 			$('#hourly-tab').closest('td').removeClass('active');
