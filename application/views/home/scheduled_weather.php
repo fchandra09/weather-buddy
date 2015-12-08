@@ -85,30 +85,33 @@
 				}
 			});
 		<?php } ?>
-		$.ajax({
-			url: '<?php echo URL_WITH_INDEX_FILE; ?>home/getDefaultLocation',
-			async: false,
-			cache: false,
-			method: 'POST',
-			dataType: 'json',
-			success: function(result) {
-				var locationText = result.city + ', ';
-				if (result.country.toLowerCase() == 'united states') {
-					locationText = locationText + result.region;
-				}
-				else {
-					locationText = locationText + result.country;
-				}
-				$('#location-text').html(locationText);
-				$.getJSON("https://api.forecast.io/forecast/0e5e272af26d7da6b94ffd58bf3b7f7a/"+result.latitude+","+result.longitude+"?callback=?", function(data){
-					console.log("FORECAST DATA");
-					console.log(data);
-					if(data.hourly){
-						fill(data.hourly.data, unit, data.daily.data[0].sunsetTime);
+
+		if ($('#scheduleStart').text() != '') {
+			$.ajax({
+				url: '<?php echo URL_WITH_INDEX_FILE; ?>home/getDefaultLocation',
+				async: false,
+				cache: false,
+				method: 'POST',
+				dataType: 'json',
+				success: function(result) {
+					var locationText = result.city + ', ';
+					if (result.country.toLowerCase() == 'united states') {
+						locationText = locationText + result.region;
 					}
-				});			
-			}
-		});
+					else {
+						locationText = locationText + result.country;
+					}
+					$('#location-text').html(locationText);
+					$.getJSON("https://api.forecast.io/forecast/0e5e272af26d7da6b94ffd58bf3b7f7a/"+result.latitude+","+result.longitude+"?callback=?", function(data){
+						console.log("FORECAST DATA");
+						console.log(data);
+						if(data.hourly){
+							fill(data.hourly.data, unit, data.daily.data[0].sunsetTime);
+						}
+					});			
+				}
+			});
+		}
 	});
 
 	getCurrentSchedule = function() {
@@ -133,10 +136,14 @@
 						end = result.End_Time_24;
 					}
 
-					$('#mySchedule').html(start + ' - ' + end);
+					$('#mySchedule').html(result.Display_Day + ' ' + start + ' - ' + end);
 					$('#edit-schedule').attr('href', '<?php echo URL_WITH_INDEX_FILE; ?>schedule/edit/' + result.ID);
 					$('#scheduleStart').html(result.Start_Time_12);
 					$('#scheduleEnd').html(result.End_Time_12);
+				}
+				else {
+					$('.additional-info').html('Please set your schedule under the Schedule Settings');
+					$('#edit-schedule').hide();
 				}
 			}
 		});
@@ -188,7 +195,7 @@
 			$('#bring-text').html(bringText.join(', '));
 		}
 		else {
-			$('#additional-info').hide();
+			$('.additional-info').hide();
 		}
 	}
 

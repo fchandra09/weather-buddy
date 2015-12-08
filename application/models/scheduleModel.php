@@ -141,7 +141,15 @@ class ScheduleModel extends Model
 					TIME_FORMAT(Schedule.Start_Time, '%h:%i %p') AS Start_Time_12,
 					TIME_FORMAT(Schedule.End_Time, '%h:%i %p') AS End_Time_12,
 					TIME_FORMAT(Schedule.Start_Time, '%H:%i') AS Start_Time_24,
-					TIME_FORMAT(Schedule.End_Time, '%H:%i') AS End_Time_24
+					TIME_FORMAT(Schedule.End_Time, '%H:%i') AS End_Time_24,
+					CASE";
+
+		for ($i = $currentDayNumber; $i < ($currentDayNumber + 7); $i++) {
+			$day = $days[($i % 7)];
+			$sql .= " WHEN " . $day . " = 1 THEN '" . $day . "'";
+		}
+
+		$sql .= " END AS Display_Day
 				FROM Schedule
 				WHERE Schedule.User_ID = :user_id
 				ORDER BY CASE
