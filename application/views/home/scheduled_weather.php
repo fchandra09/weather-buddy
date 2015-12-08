@@ -118,16 +118,17 @@
 
 				var windBearing = getWindDirection(hourly[i].windBearing);
 				var temperature = checkTemperatureUnit(hourly[i].temperature, unit);
+				var feelsTemp = checkTemperatureUnit(hourly[i].apparentTemperature,unit);
 				$('#needSomeBODY').append(
 					'<tr><td>'+time+'</td>'+
 			            	'<td></td>'+ //icon
 			            	'<td>'+temperature+'&deg;'+unit+'</td>'+
-			            	'<td>'+checkTemperatureUnit(hourly[i].apparentTemperature,unit)+'&deg;'+unit+'</td>'+
+			            	'<td>'+feelsTemp+'&deg;'+unit+'</td>'+
 			            	'<td>'+hourly[i].precipProbability*100+'%</td>'+
 			            	'<td>'+hourly[i].humidity*100+'%</td>'+
 			            	'<td>'+Math.round(hourly[i].windSpeed)+' mph '+windBearing+'</td></tr>');
 				
-			    var temp = Math.round(temperature).toString();
+			    var temp = Math.round(feelsTemp).toString();
 			    allTemps.push(temp);
 		    }      
 		}
@@ -135,7 +136,7 @@
 	}
 	function fillBrings(temps){
 		for (var i = 0; i < temps.length; i++){
-			getBringData(temps[i]);
+			getBringData(temps[i],i);
 		}
 	}
 	function getStartEndTime(time){
@@ -154,6 +155,7 @@
 		<?php } ?>
 		//console.log("start is "+start+" end is "+end);
 		$('#mySchedule').html(start + '-' + end);
+		$('#edit-schedule').attr('href', '<?php echo URL_WITH_INDEX_FILE; ?>schedule/edit/1');
 		var startUnix = 0;
 		var endUnix = 0;
 		var rightNow = Math.round((new Date()).getTime() / 1000);
@@ -199,7 +201,7 @@
 		//to deal with later: multiple time periods?? checking to make sure it's the day wanted?
 		
 	}
-	function getBringData(temperature){
+	function getBringData(temperature, tempindex){
 		$.ajax({
 			url: '<?php echo URL_WITH_INDEX_FILE; ?>feels/getFeelsByTemperature/' + temperature,
 			cache: false,
@@ -225,8 +227,10 @@
 				});
 				if (bringText.length > 0) {
 					var currBringText = $('#bring-text').html();
-					if (currBringText.search(bringText.join(',')) == -1) //fix if more than one thing to bring
-						$('#bring-text').append(bringText.join(', '));
+					if (currBringText.search(bringText[0]) === -1){
+						if (tempindex > 0) $('#bring-text').append(', ');
+						$('#bring-text').append(bringText[0]);
+					}
 				}
 				
 				return bringText;

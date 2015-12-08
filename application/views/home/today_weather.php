@@ -4,11 +4,12 @@
 	<div class="clearfix">
 		<div class="location">
 			<span id="location-text"></span><br/>
-			<span id="date-text"><?php echo date('F d, Y', time()); ?></span>
+			<span id="date-text"><?php echo date('F d, Y', time()); ?></span><br/>
+			<span id='back-to-default'><span class='button'>Switch back to default location</span><span class="glyphicon glyphicon-chevron-right"></span></span>
 		</div>
-		<div class="share">
+		<!--<div class="share">
 			Share
-		</div>
+		</div>-->
 	</div>
 
 	<?php if (is_numeric($userID)) { ?>
@@ -28,8 +29,8 @@
 			<span id="feel-text"></span>
 			<a id="edit-feel" href="#" title="Edit" class="edit-link">
 				<span class="glyphicon glyphicon-pencil"></span>
-			</a>
-			<span id="bring-text"></span>
+			</a><br/>
+			<span id="bring-text"></span><br/>
 		<?php } ?>
 		Sunrise: <span id="sunrise-text"></span>, Sunset: <span id="sunset-text"></span>
 	</div>
@@ -152,6 +153,8 @@
 </div>
 
 <script>
+	var apiUnit = 'imperial';
+	var unit = 'F';
 	$(document).ready(function() {
 		$('#future-table').hide();
 
@@ -175,14 +178,18 @@
 		<?php } ?>
 
 		<?php if (strcasecmp($GLOBALS["beans"]->siteHelper->getSession("temperatureUnit"), "C") == 0) { ?>
-			var apiUnit = 'metric';
-			var unit = 'C';
+			apiUnit = 'metric';
+			unit = 'C';
 		<?php } else { ?>
-			var apiUnit = 'imperial';
-			var unit = 'F';
+			apiUnit = 'imperial';
+			unit = 'F';
 		<?php } ?>
 
 		/* Get default location */
+		getDefaultLocAndPopFields();
+	});
+	getDefaultLocAndPopFields = function(){
+		$('#back-to-default').hide();
 		$.ajax({
 			url: '<?php echo URL_WITH_INDEX_FILE; ?>home/getDefaultLocation',
 			async: false,
@@ -199,13 +206,33 @@
 				}
 				$('#location-text').html(locationText);
 
-				//populate3HourData(result, apiUnit, unit);
-				populate5DayData(result, apiUnit, unit);
-				populateHourlyData(result, unit);
+				var currloc = true;
+				populate5DayData(result, apiUnit, unit, currloc);
+				populateHourlyData(result, unit, currloc);
 			}
 		});
+	}
+	$('#search-button').click(function(){
+		useLocationSearch();
 	});
-
+	useLocationSearch = function(){
+		$('#back-to-default').show();
+		var zip = document.getElementById('zip-input').value;
+		var apikey='js-jmi1B78zbAMBIgA332y9JoJA5fwT0a9kwrl8ytHK4tmMKWQNYoWIMFiSVPLV0Ugw'
+		$.getJSON("https://www.zipcodeapi.com/rest/"+apikey+"/info.json/"+zip+"/degrees", function(data){
+			//console.log(data); //returns city, lat, lng, state
+			$('#location-text').html(data.city + ', ' + data.state);
+			var currloc = false;
+			populate5DayData(data, apiUnit, unit, currloc);
+			populateHourlyData(data, unit, currloc);
+		});
+	}
+	$('#zip-input').bind('keypress', function(e) {
+		if(e.keyCode==13){
+			useLocationSearch();
+		}
+	});
+	$('#back-to-default').click(function(){getDefaultLocAndPopFields();})
 	toggleTab = function() {
 		if ($(this).attr('id') == 'future-tab') {
 			$('#hourly-tab').closest('td').removeClass('active');
@@ -238,21 +265,27 @@
 			method: 'POST'
 		});
 	}
-	populateHourlyData = function(result, unit){
-		$.getJSON("https://api.forecast.io/forecast/0e5e272af26d7da6b94ffd58bf3b7f7a/"+result.latitude+","+result.longitude+"?callback=?", function(data){
-			console.log("FORECAST DATA");
-			console.log(data);
+	populateHourlyData = function(result, unit, currloc){
+		var latitude = result.latitude;
+		var longitude = result.longitude;
+		if (!currloc){
+			latitude = result.lat;
+			longitude = result.lng;
+		}
+		$.getJSON("https://api.forecast.io/forecast/0e5e272af26d7da6b94ffd58bf3b7f7a/"+latitude+","+longitude+"?callback=?", function(data){
+			//console.log("FORECAST DATA");
+			//console.log(data);
 			if(data){
 				//fill sunrise and sunset times:
 				var sunriseTime = convertUnixToHumanTime(data.daily.data[0].sunriseTime); 
 				var sunsetTime = convertUnixToHumanTime(data.daily.data[0].sunsetTime);  
-				console.log(sunriseTime + " " + sunsetTime);
 				$('#sunrise-text').html(sunriseTime);
 				$('#sunset-text').html(sunsetTime);
 
 				//Current temperature
 				var currTemperature = checkTemperatureUnit(data.hourly.data[0].temperature, unit);
 				$('#current-temperature-text').html(currTemperature + '&deg;' + unit);
+
 				<?php if (is_numeric($userID)) { ?>
 					populateFeelData(currTemperature);
 				<?php } ?>
@@ -301,26 +334,32 @@
 	}
 
 	//won't be using this one...
-	populate3HourData = function(result, apiUnit, unit) {
+	populate3HourData = function(result, apiUnit, unit, currloc) {
+		var latitude = result.latitude;
+		var longitude = result.longitude;
+		if (!currloc){
+			latitude = result.lat;
+			longitude = result.lng;
+		}
 		$.ajax({
 			url: 'http://api.openweathermap.org/data/2.5/forecast',
 			async: false,
 			cache: false,
 			dataType: 'xml',
 			data: {
-				lat: result.latitude,
-				lon: result.longitude,
+				lat: latitude,
+				lon: longitude,
 				cnt: 5,
 				units: apiUnit,
 				mode: 'xml',
 				appid: '3b41a386edad3e3156564ca59767fcc6'
 			},
 			success: function(weatherData) {
-				var sunriseTime = convertDateTimeStringToDate($(weatherData).find('sun').attr('rise'));
-				var sunsetTime = convertDateTimeStringToDate($(weatherData).find('sun').attr('set'));
+				//var sunriseTime = convertDateTimeStringToDate($(weatherData).find('sun').attr('rise'));
+				//var sunsetTime = convertDateTimeStringToDate($(weatherData).find('sun').attr('set'));
 
-				$('#sunrise-text').html(formatTime(sunriseTime));
-				$('#sunset-text').html(formatTime(sunsetTime));
+				//$('#sunrise-text').html(formatTime(sunriseTime));
+				//$('#sunset-text').html(formatTime(sunsetTime));
 
 				$(weatherData).find('forecast').find('time').each(function(index, element) {
 					if (index >= 5) {
@@ -420,7 +459,7 @@
 				if (feelText.length > 0) {
 					$('#feel-text').html(feelText.join(', '));
 					$('#edit-feel').attr('href', '<?php echo URL_WITH_INDEX_FILE; ?>feels/edit/' + feelID);
-					$('#edit-feel').after('<br/>');
+					//$('#edit-feel').after('<br/>');
 					hideEditLink = false;
 				}
 				else {
@@ -431,13 +470,13 @@
 					$('#bring-text').html('Bring / Wear: ' + bringText.join(', '));
 					if (hideEditLink) {
 						var editLink = $('#edit-feel').detach();
-						$('#bring-text').after(editLink);
+						//$('#bring-text').after(editLink);
 						$('#edit-feel').attr('href', '<?php echo URL_WITH_INDEX_FILE; ?>feels/edit/' + feelID);
-						$('#edit-feel').after('<br/>');
+						//$('#edit-feel').after('<br/>');
 						hideEditLink = false;
 					}
 					else {
-						$('#bring-text').after('<br/>');
+						//$('#bring-text').after('<br/>');
 					}
 				}
 				else {
@@ -462,7 +501,6 @@
 
 	getIconClass = function(conditionID, currentTime, sunsetTime, darksky) {
 		var iconClass = '';
-		console.log(conditionID);
 		if(!darksky){
 			switch (conditionID.substr(0,1)) {
 				case '2':
@@ -502,9 +540,6 @@
 			else if (conditionID == 'snow' || conditionID == 'sleet'){
 				iconClass = 'snow';
 			}
-			//else if (conditionID == 'wind'){
-			//	iconClass = 'wind';
-			//} 
 			else if (conditionID == 'fog' || conditionID == 'cloudy' || conditionID == 'partly-cloudy-night' || conditionID == 'partly-cloudy-day'){
 				iconClass = 'cloud';
 			}

@@ -116,9 +116,9 @@ if ($settingsNav || strcasecmp($activeView, "user") == 0) {
 			<?php if ($locationSearch) { ?>
 				<div class="navbar-form navbar-left location-search hidden-xs">
 					<div class="input-group">
-						<input type="text" class="form-control" placeholder="Search city or zip" />
+						<input id='zip-input' type="text" class="form-control" placeholder="Search zip" />
 						<span class="input-group-addon">
-							<span class="glyphicon glyphicon-search"></span>
+							<span class="glyphicon glyphicon-search" id='search-button'></span>
 						</span>
 					</div>
 				</div>
@@ -160,9 +160,9 @@ if ($settingsNav || strcasecmp($activeView, "user") == 0) {
 					<?php if ($locationSearch) { ?>
 						<li class="location-search-mobile">
 							<div class="input-group">
-								<input type="text" class="form-control" placeholder="Search city or zip" />
+								<input id='zip-input' type="text" class="form-control" placeholder="Search zip" />
 								<span class="input-group-addon">
-									<span class="glyphicon glyphicon-search"></span>
+									<span class="glyphicon glyphicon-search" id='search-button'></span>
 								</span>
 							</div>
 						</li>
