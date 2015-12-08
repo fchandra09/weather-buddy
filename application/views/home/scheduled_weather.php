@@ -156,11 +156,7 @@
 		var bringText = [];
 		for (var i = 0; i < hourly.length; i++){
 			if(hourly[i].time >= start & hourly[i].time <= end){
-				time = new Date(hourly[i].time*1000).getHours();
-				if (time === 0) time = 12+':00 AM';
-				else if (time < 12) time = time+':00 AM';
-				else if (time === 12) time = time+':00 PM'
-				else time = time%12 +':00 PM';
+				time = formatTime(hourly[i].time);
 
 				var windBearing = getWindDirection(hourly[i].windBearing);
 				var temperature = checkTemperatureUnit(hourly[i].temperature, unit);
@@ -368,5 +364,37 @@
 		else iconClass = 'sun';
 
 		return iconClass;
+	}
+
+	formatTime = function(unixTime) {
+		var dateTime = new Date(unixTime * 1000);
+		var timeFormat = '<?php echo $GLOBALS["beans"]->siteHelper->getSession("timeFormat"); ?>';
+		var result;
+
+		var minuteText = '00' + dateTime.getMinutes().toString();
+		minuteText = minuteText.substr(minuteText.length - 2, 2);
+
+		if (timeFormat == '24') {
+			var hourText = '00' + dateTime.getHours().toString();
+			hourText = hourText.substr(hourText.length - 2, 2);
+			result = hourText + ':' + minuteText; 
+		}
+		else {
+			var hour = dateTime.getHours() % 12;
+			if (hour == 0) {
+				hour = 12;
+			}
+			hourText = '00' + hour.toString();
+			hourText = hourText.substr(hourText.length - 2, 2);
+
+			var am_pm = 'AM';
+			if (dateTime.getHours() >= 12) {
+				am_pm = 'PM';
+			}
+
+			result = hourText + ':' + minuteText + ' ' + am_pm;
+		}
+
+		return result;
 	}
 </script>
