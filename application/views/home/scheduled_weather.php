@@ -4,7 +4,7 @@
 	<div class="clearfix">
 		<div class="location">
 			<span id="location-text">Champaign, IL 61820</span><br/>
-			<span id="date-text"><?php echo date('F d, Y', time()); ?></span>
+			<span id="date-text"></span>
 		</div>
 	</div>
 
@@ -18,6 +18,7 @@
 	<div class="welcome text-center">Welcome, <?php echo $user->First_Name ?>!</div>
 	<div class="important-info text-center">
 		<span id="mySchedule">No times chosen</span>
+		<span id="scheduleStart" class="hidden"></span><span id="scheduleEnd" class="hidden"></span>
 		<a id="edit-schedule" href="#" title="Edit" class="edit-link">
 			<span class="glyphicon glyphicon-pencil"></span>
 		</a>
@@ -32,8 +33,8 @@
 				<table class="table">
 					<thead>
 						<tr>
-							<th>Time</th>
 							<th>&nbsp;</th>
+							<th>Time</th>
 							<th>Temperature</th>
 							<th>Feel</th>
 							<th>Precipitation</th>
@@ -59,6 +60,13 @@
 			//var apiUnit = 'imperial';
 			var unit = 'F';
 		<?php } ?>
+
+		// Set time according to user's timezone
+		var localTime  = moment.utc().toDate();
+		localTime = moment(localTime).format('MMMM D, YYYY');
+		$('#date-text').html(localTime);
+
+		getCurrentSchedule();
 
 		//Call APIs to get location and hourly weather data
 		<?php if (!is_object($GLOBALS["beans"]->siteHelper->getSession("location"))) { ?>
@@ -96,18 +104,49 @@
 					console.log("FORECAST DATA");
 					console.log(data);
 					if(data.hourly){
-						fill(data.hourly.data, unit);
+						fill(data.hourly.data, unit, data.daily.data[0].sunsetTime);
 					}
 				});			
 			}
 		});
 	});
 
-	function fill(hourly,unit){
+	getCurrentSchedule = function() {
+		var localTime  = moment.utc().toDate();
+		var currentDayNumber = moment(localTime).day();
+		var currentTime = moment(localTime).format('HH:mm:ss');
+
+		$.ajax({
+			url: '<?php echo URL_WITH_INDEX_FILE; ?>schedule/getCurrentSchedule/' + currentDayNumber + '/' + currentTime,
+			async: false,
+			cache: false,
+			method: 'POST',
+			dataType: 'json',
+			success: function(result) {
+				if (result.ID != '') {
+					var timeFormat = '<?php echo $GLOBALS["beans"]->siteHelper->getSession("timeFormat"); ?>';
+
+					var start = result.Start_Time_12;
+					var end = result.End_Time_12;
+					if (timeFormat == '24') {
+						start = result.Start_Time_24;
+						end = result.End_Time_24;
+					}
+
+					$('#mySchedule').html(start + ' - ' + end);
+					$('#edit-schedule').attr('href', '<?php echo URL_WITH_INDEX_FILE; ?>schedule/edit/' + result.ID);
+					$('#scheduleStart').html(result.Start_Time_12);
+					$('#scheduleEnd').html(result.End_Time_12);
+				}
+			}
+		});
+	}
+
+	function fill(hourly,unit, sunsetTime){
 		var start = getStartEndTime("start");
 		var end = getStartEndTime("end");
 		var time = '';
-		var allTemps = [];
+		var bringText = [];
 		for (var i = 0; i < hourly.length; i++){
 			if(hourly[i].time >= start & hourly[i].time <= end){
 				time = new Date(hourly[i].time*1000).getHours();
@@ -119,75 +158,89 @@
 				var windBearing = getWindDirection(hourly[i].windBearing);
 				var temperature = checkTemperatureUnit(hourly[i].temperature, unit);
 				var feelsTemp = checkTemperatureUnit(hourly[i].apparentTemperature,unit);
+
+				var feelText = '';
+				var feelsData = getFeelsData(feelsTemp, bringText);
+				if (feelsData.length > 0) {
+					feelText = feelsData[0];
+					bringText = feelsData[1];
+				}
+
+				var icon = hourly[i].icon; 
+				var iconClass = getIconClass(icon, hourly[i].time, sunsetTime);
+
 				$('#needSomeBODY').append(
-					'<tr><td>'+time+'</td>'+
-			            	'<td></td>'+ //icon
+					'<tr><td class="text-center"><div class="weather-icon ' + iconClass + '" style="display:inline-block;"></div></td>'+
+			            	'<td>'+time+'</td>'+
 			            	'<td>'+temperature+'&deg;'+unit+'</td>'+
-			            	'<td>'+feelsTemp+'&deg;'+unit+'</td>'+
+			            	'<td>'+feelText+'</td>'+
 			            	'<td>'+hourly[i].precipProbability*100+'%</td>'+
 			            	'<td>'+hourly[i].humidity*100+'%</td>'+
 			            	'<td>'+Math.round(hourly[i].windSpeed)+' mph '+windBearing+'</td></tr>');
-				
-			    var temp = Math.round(feelsTemp).toString();
-			    allTemps.push(temp);
 		    }      
 		}
-		fillBrings(allTemps);
-	}
-	function fillBrings(temps){
-		for (var i = 0; i < temps.length; i++){
-			getBringData(temps[i],i);
+
+		// Check if umbrella is necessary
+		if ($('div.weather-icon.rain').length > 0) {
+			bringText.push('Umbrella');
+		}
+		if (bringText.length > 0) {
+			$('#bring-text').html(bringText.join(', '));
+		}
+		else {
+			$('#additional-info').hide();
 		}
 	}
+
 	function getStartEndTime(time){
-		var start = "";
-		var end = "";
-		//first, get the start and end times
-		<?php $scheduleList = $GLOBALS["beans"]->scheduleService->getScheduleList($userID); ?>
-		<?php foreach ($scheduleList as $schedule){ ?>
-			<?php if (strcasecmp($GLOBALS["beans"]->siteHelper->getSession("timeFormat"), "24") == 0) { ?>
-				start = "<?php echo $schedule->Start_Time_24 ?>";
-				end = "<?php echo $schedule->End_Time_24 ?>";
-			<?php } else { ?>
-				start = "<?php echo $schedule->Start_Time_12 ?>";
-				end = "<?php echo $schedule->End_Time_12 ?>";
-			<?php } ?>
-		<?php } ?>
-		//console.log("start is "+start+" end is "+end);
-		$('#mySchedule').html(start + '-' + end);
-		$('#edit-schedule').attr('href', '<?php echo URL_WITH_INDEX_FILE; ?>schedule/edit/1');
+		var start = $('#scheduleStart').text();
+		var end = $('#scheduleEnd').text();
+
 		var startUnix = 0;
 		var endUnix = 0;
 		var rightNow = Math.round((new Date()).getTime() / 1000);
-		
+
 		//convert into UNIX time for fun (jk we need to be able to get the right hours)
 		if (start.substring(start.length-2, start.length) === "AM"){
 			//console.log("AM");
-			start = start.substring(0,5);
+			start = start.substring(0,2);
 			today = new Date(); //get today's date
-			myDate = getMonthName(today.getMonth()) + ' ' + today.getDate() + ', ' + today.getFullYear() + ' ' + start + ':00';
+			myDate = getMonthName(today.getMonth()) + ' ' + today.getDate() + ', ' + today.getFullYear() + ' ' + start + ':00:00';
 			startUnix = Math.round((new Date(myDate)).getTime() / 1000);
 		} else {
 			//console.log("PM");
 			startnum = String(Number(start.substring(0,2))+12); //convert start back to 24hr time
-			start = startnum+start.substring(2,5);
 			today = new Date(); //get today's date
-			myDate = getMonthName(today.getMonth()) + ' ' + today.getDate() + ', ' + today.getFullYear() + ' ' + start + ':00';
+			myDate = getMonthName(today.getMonth()) + ' ' + today.getDate() + ', ' + today.getFullYear() + ' ' + startNum + ':00:00';
 			startUnix = Math.round((new Date(myDate)).getTime() / 1000);
 		}
 		//same thing for end - repeating code is bad I know, I'll fix later if time
 		if (end.substring(end.length-2, end.length) === "AM"){
 			//console.log("AM");
-			end = end.substring(0,5);
+			var endMin = end.substring(3,2);
+			end = end.substring(0,2);
+			if (endMin != '00') {
+				end = parseInt(end) + 1;
+				end = '00' + end;
+				end = end.substring(end.length - 2, 2);
+			}
 			today = new Date(); //get today's date
-			myDate = getMonthName(today.getMonth()) + ' ' + today.getDate() + ', ' + today.getFullYear() + ' ' + end + ':00';
+			myDate = getMonthName(today.getMonth()) + ' ' + today.getDate() + ', ' + today.getFullYear() + ' ' + end + ':00:00';
 			endUnix = Math.round((new Date(myDate)).getTime() / 1000);
 		} else {
 			//console.log("PM");
+			var endMin = end.substring(3,2);
 			endnum = String(Number(end.substring(0,2))+12); //convert start back to 24hr time
-			end = endnum+end.substring(2,5);
+			if (endMin != '00') {
+				endnum = parseInt(endnum) + 1;
+				if (endnum > 23) {
+					endnum = 0;
+				}
+				endnum = '00' + endnum;
+				endnum = endnum.substring(end.length - 2, 2);
+			}
 			today = new Date(); //get today's date
-			myDate = getMonthName(today.getMonth()) + ' ' + today.getDate() + ', ' + today.getFullYear() + ' ' + end + ':00';
+			myDate = getMonthName(today.getMonth()) + ' ' + today.getDate() + ', ' + today.getFullYear() + ' ' + endnum + ':00:00';
 			endUnix = Math.round((new Date(myDate)).getTime() / 1000);
 		}
 		if (startUnix < rightNow){
@@ -199,18 +252,19 @@
 		if(time === "start") return startUnix;
 		if(time === "end") return endUnix;
 		//to deal with later: multiple time periods?? checking to make sure it's the day wanted?
-		
+
 	}
-	function getBringData(temperature, tempindex){
+	function getFeelsData(temperature, bringText){
+		var result = [];
+
 		$.ajax({
 			url: '<?php echo URL_WITH_INDEX_FILE; ?>feels/getFeelsByTemperature/' + temperature,
+			async: false,
 			cache: false,
 			method: 'POST',
 			dataType: 'json',
 			success: function(feels) {
-				var feelID = '';
 				var feelText = [];
-				var bringText = [];
 
 				$(feels).each(function(index, feel) {
 					if (index == 0) {
@@ -225,17 +279,13 @@
 						bringText.push(feel.Bring_Wear);
 					}
 				});
-				if (bringText.length > 0) {
-					var currBringText = $('#bring-text').html();
-					if (currBringText.search(bringText[0]) === -1){
-						if (tempindex > 0) $('#bring-text').append(', ');
-						$('#bring-text').append(bringText[0]);
-					}
-				}
-				
-				return bringText;
+
+				result.push(feelText.join(', '));
+				result.push(bringText);
 			}
 		});
+
+		return result;
 	}
 
 	//same as today_weather.php
@@ -292,5 +342,24 @@
 		return Math.round(newTemp);
 	}
 
+	getIconClass = function(conditionID, currentTime, sunsetTime) {
+		var iconClass = '';
 
+		//for darksky: clear-day, clear-night, rain, snow, sleet, wind, fog, cloudy, partly-cloudy-day, or partly-cloudy-night
+		if (conditionID == 'clear-night' || currentTime > sunsetTime){
+			iconClass = 'moon';
+		}
+		else if (conditionID == 'rain'){
+			iconClass = 'rain';
+		} 
+		else if (conditionID == 'snow' || conditionID == 'sleet'){
+			iconClass = 'snow';
+		}
+		else if (conditionID == 'fog' || conditionID == 'cloudy' || conditionID == 'partly-cloudy-night' || conditionID == 'partly-cloudy-day'){
+			iconClass = 'cloud';
+		}
+		else iconClass = 'sun';
+
+		return iconClass;
+	}
 </script>

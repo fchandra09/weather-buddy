@@ -32,4 +32,9 @@ class ScheduleService extends Service
 		$this->model->deleteSchedule($scheduleID, $userID);
 	}
 
+	public function getCurrentSchedule($userID, $currentDayNumber, $currentTime)
+	{
+		return $this->model->getCurrentSchedule($userID, $currentDayNumber, $currentTime);
+	}
+
 }

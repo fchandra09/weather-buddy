@@ -133,4 +133,39 @@ class ScheduleModel extends Model
 		$GLOBALS["beans"]->queryHelper->executeWriteQuery($this->db, $sql, $parameters);
 	}
 
+	public function getCurrentSchedule($userID, $currentDayNumber, $currentTime)
+	{
+		$days = array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
+
+		$sql = "SELECT Schedule.*,
+					TIME_FORMAT(Schedule.Start_Time, '%h:%i %p') AS Start_Time_12,
+					TIME_FORMAT(Schedule.End_Time, '%h:%i %p') AS End_Time_12,
+					TIME_FORMAT(Schedule.Start_Time, '%H:%i') AS Start_Time_24,
+					TIME_FORMAT(Schedule.End_Time, '%H:%i') AS End_Time_24
+				FROM Schedule
+				WHERE Schedule.User_ID = :user_id
+				ORDER BY CASE
+					WHEN " . $days[$currentDayNumber] . " = 1 AND Start_Time <= :current_time AND End_Time > :current_time THEN 1
+			        WHEN " . $days[$currentDayNumber] . " = 1 AND Start_Time > :current_time THEN 2";
+
+		$orderNumber = 3;
+		for ($i = ($currentDayNumber + 1); $i < ($currentDayNumber + 8); $i++) {
+			$day = $days[($i % 7)];
+			$sql .= " WHEN " . $day . " = 1 THEN " . $orderNumber;
+			$orderNumber++;
+		}
+
+		$sql .= " END,
+			    Start_Time,
+			    End_Time
+			LIMIT 1";
+
+		$parameters = array(
+				":user_id" => $userID,
+				":current_time" => $currentTime
+		);
+
+		return $GLOBALS["beans"]->queryHelper->getSingleRowObject($this->db, $sql, $parameters);
+	}
+
 }

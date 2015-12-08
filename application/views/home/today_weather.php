@@ -313,8 +313,8 @@
 					var apparentTemperature = checkTemperatureUnit(data.hourly.data[i].apparentTemperature, unit);
 					var time = formatTime(data.hourly.data[i].time);
 					var windDirection = getWindDirection(data.hourly.data[i].windBearing); //convert to direction! 
-					var icon = data.hourly.data[i].icon; 
-					var iconClass = getIconClass(iconClass, data.hourly.data[i].time, data.daily.data[0].sunsetTime, true)
+					var icon = data.hourly.data[i].icon;
+					var iconClass = getIconClass(icon, data.hourly.data[i].time, data.daily.data[0].sunsetTime, true);
 
 					//set the html for all the boxes
 					$('#time-' + (i+1)).html(time);
@@ -396,6 +396,11 @@
 						bringText.push(feel.Bring_Wear);
 					}
 				});
+
+				// Check if umbrella is necessary
+				if ($('#hourly-icon-1').find('div.weather-icon').hasClass('rain')) {
+					bringText.push('Umbrella');
+				}
 
 				var hideEditLink = true;
 				if (feelText.length > 0) {

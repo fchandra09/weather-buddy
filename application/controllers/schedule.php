@@ -39,4 +39,12 @@ class Schedule
 		header('location: ' . URL_WITH_INDEX_FILE . 'schedule');
 	}
 
+	public function getCurrentSchedule($currentDayNumber, $currentTime)
+	{
+		$userID = $GLOBALS["beans"]->siteHelper->getSession("userID");
+		$currentSchedule = $GLOBALS["beans"]->scheduleService->getCurrentSchedule($userID, $currentDayNumber, $currentTime);
+
+		echo json_encode($currentSchedule);
+	}
+
 }
