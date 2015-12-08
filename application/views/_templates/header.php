@@ -49,6 +49,7 @@ if ($settingsNav || strcasecmp($activeView, "user") == 0) {
 
 	<!-- JS -->
 	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
 	<script src="<?php echo URL; ?>public/js/jquery.validate.js" type="text/javascript"></script>
 	<script src="<?php echo URL; ?>public/js/additional-methods.js" type="text/javascript"></script>
 	<script src="<?php echo URL; ?>public/js/bootstrap.js"></script>
@@ -116,9 +117,9 @@ if ($settingsNav || strcasecmp($activeView, "user") == 0) {
 			<?php if ($locationSearch) { ?>
 				<div class="navbar-form navbar-left location-search hidden-xs">
 					<div class="input-group">
-						<input id='zip-input' type="text" class="form-control" placeholder="Search zip" />
-						<span class="input-group-addon">
-							<span class="glyphicon glyphicon-search" id='search-button'></span>
+						<input type="text" class="form-control zip-input" placeholder="Search zip" />
+						<span class="input-group-addon zip-input-button">
+							<span class="glyphicon glyphicon-search"></span>
 						</span>
 					</div>
 				</div>
@@ -160,9 +161,9 @@ if ($settingsNav || strcasecmp($activeView, "user") == 0) {
 					<?php if ($locationSearch) { ?>
 						<li class="location-search-mobile">
 							<div class="input-group">
-								<input id='zip-input' type="text" class="form-control" placeholder="Search zip" />
-								<span class="input-group-addon">
-									<span class="glyphicon glyphicon-search" id='search-button'></span>
+								<input type="text" class="form-control zip-input" placeholder="Search zip" />
+								<span class="input-group-addon zip-input-button">
+									<span class="glyphicon glyphicon-search"></span>
 								</span>
 							</div>
 						</li>

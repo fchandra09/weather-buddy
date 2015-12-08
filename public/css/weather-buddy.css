@@ -392,6 +392,10 @@ a:hover, a:focus {
 	font-size: 1.125rem;
 	margin-top: 30px;
 }
+.location-link {
+	color: #fff;
+	cursor: pointer;
+}
 .main-link a,
 .important-info a,
 .additional-info a {
@@ -399,7 +403,8 @@ a:hover, a:focus {
 }
 .main-link a:hover, .main-link a:focus,
 .important-info a:hover, .important-info a:focus,
-.additional-info a:hover, .additional-info a:focus {
+.additional-info a:hover, .additional-info a:focus,
+.location-link:hover, .location-link:focus {
 	color: #4c4c4c;
 }
 .main-link .glyphicon {
@@ -444,7 +449,7 @@ a:hover, a:focus {
 	border: 1px solid #fff;
 }
 .weather-details {
-	margin: 60px 0 20px;
+	margin: 30px 0 20px;
 }
 .weather-details .table {
 	margin-bottom: 0;
