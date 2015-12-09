@@ -57,6 +57,11 @@ a:hover, a:focus {
 	font-size: 1.25rem;
 	font-weight: bold;
 }
+.navbar-inverse .navbar-nav > li > a > .caret {
+	border-left: 6px solid transparent;
+	border-right: 6px solid transparent;
+	border-top: 6px dashed;
+}
 .navbar-inverse .navbar-toggle {
 	border-color: #fff;
 	float: left;
@@ -398,8 +403,12 @@ a:hover, a:focus {
 }
 .main-link a,
 .important-info a,
-.additional-info a {
+.additional-info a,
+.location-link {
 	color: #fff;
+	text-decoration: underline;
+	text-decoration-style: dotted;
+	-webkit-text-decoration-style: dotted;
 }
 .main-link a:hover, .main-link a:focus,
 .important-info a:hover, .important-info a:focus,
