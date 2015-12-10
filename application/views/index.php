@@ -99,5 +99,7 @@ $email = "";
 		And forget to bring one when it rains?
 		Do you have any trouble interpreting different temperatures?
 		If so, simply create an account and login to access your very own personalized weather data!
+		<br/><br/>
+		For more information, watch our <a data-toggle="modal" data-target="#tutorial-video">tutorial video</a>.
 	</div>
 </div>

@@ -96,6 +96,10 @@ if ($settingsNav || strcasecmp($activeView, "user") == 0) {
 			$('.form-group.required').each(function(index, element) {
 				$(element).find('label:first').append('<span class="asterisk-required">*</span>');
 			});
+
+			$('#tutorial-video').on('hidden.bs.modal', function (e) {
+				$('#tutorial-video iframe').attr('src', $('#tutorial-video iframe').attr('src'));
+			});
 		});
 	</script>
 </head>
@@ -136,6 +140,9 @@ if ($settingsNav || strcasecmp($activeView, "user") == 0) {
 							<ul class="dropdown-menu">
 								<li>
 									<a href="<?php echo URL_WITH_INDEX_FILE; ?>user">Settings</a>
+								</li>
+								<li>
+									<a data-toggle="modal" data-target="#tutorial-video" style="cursor:pointer;">Tutorial Video</a>
 								</li>
 								<li>
 									<a href="<?php echo URL_WITH_INDEX_FILE; ?>user/logout">Logout</a>
@@ -188,6 +195,12 @@ if ($settingsNav || strcasecmp($activeView, "user") == 0) {
 							</a>
 						</li>
 						<li>
+							<a data-toggle="modal" data-target="#tutorial-video" style="cursor:pointer;">
+								Tutorial Video
+								<span class="glyphicon glyphicon-chevron-right"></span>
+							</a>
+						</li>
+						<li>
 							<a href="<?php echo URL_WITH_INDEX_FILE; ?>user/logout">
 								Logout
 								<span class="glyphicon glyphicon-chevron-right"></span>
@@ -206,6 +219,20 @@ if ($settingsNav || strcasecmp($activeView, "user") == 0) {
 			</div>
 		</div>
 	</nav>
+
+	<div id="tutorial-video" class="modal fade" tabindex="-1" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">My Weather Buddy Tutorial Video</h4>
+				</div>
+				<div class="modal-body">
+					<iframe width="100%" height="315" src="" frameborder="0" allowfullscreen></iframe>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<?php if ($settingsNav) {
 		require APP . 'views/_templates/settings.php';

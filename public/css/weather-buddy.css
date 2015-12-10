@@ -252,6 +252,16 @@ a:hover, a:focus {
 	padding: 50px 0 0 30px;
 	font-size: 1.125rem;
 }
+.introduction-box a {
+	color: #fff;
+	cursor: pointer;
+	text-decoration: underline;
+	text-decoration-style: dotted;
+	-webkit-text-decoration-style: dotted;
+}
+.introduction-box a:hover, .introduction-box a:focus {
+	color: #4c4c4c;
+}
 #login-div,
 #create-div {
 	padding: 10px 5px 0 5px;
