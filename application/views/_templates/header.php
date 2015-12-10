@@ -228,7 +228,7 @@ if ($settingsNav || strcasecmp($activeView, "user") == 0) {
 					<h4 class="modal-title">My Weather Buddy Tutorial Video</h4>
 				</div>
 				<div class="modal-body">
-					<iframe width="100%" height="315" src="" frameborder="0" allowfullscreen></iframe>
+					<iframe width="100%" height="315" src="https://www.youtube.com/embed/RmJjr6LJ46A" frameborder="0" allowfullscreen></iframe>
 				</div>
 			</div>
 		</div>
