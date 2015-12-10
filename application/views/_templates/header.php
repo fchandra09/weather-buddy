@@ -142,10 +142,10 @@ if ($settingsNav || strcasecmp($activeView, "user") == 0) {
 									<a href="<?php echo URL_WITH_INDEX_FILE; ?>user">Settings</a>
 								</li>
 								<li>
-									<a data-toggle="modal" data-target="#tutorial-video" style="cursor:pointer;">Tutorial Video</a>
+									<a href="<?php echo URL_WITH_INDEX_FILE; ?>user/logout">Logout</a>
 								</li>
 								<li>
-									<a href="<?php echo URL_WITH_INDEX_FILE; ?>user/logout">Logout</a>
+									<a data-toggle="modal" data-target="#tutorial-video" style="cursor:pointer;">Tutorial Video</a>
 								</li>
 							</ul>
 						</li>
@@ -195,14 +195,14 @@ if ($settingsNav || strcasecmp($activeView, "user") == 0) {
 							</a>
 						</li>
 						<li>
-							<a data-toggle="modal" data-target="#tutorial-video" style="cursor:pointer;">
-								Tutorial Video
+							<a href="<?php echo URL_WITH_INDEX_FILE; ?>user/logout">
+								Logout
 								<span class="glyphicon glyphicon-chevron-right"></span>
 							</a>
 						</li>
 						<li>
-							<a href="<?php echo URL_WITH_INDEX_FILE; ?>user/logout">
-								Logout
+							<a data-toggle="modal" data-target="#tutorial-video" style="cursor:pointer;">
+								Tutorial Video
 								<span class="glyphicon glyphicon-chevron-right"></span>
 							</a>
 						</li>

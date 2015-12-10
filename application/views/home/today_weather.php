@@ -7,9 +7,11 @@
 			<span id="date-text"></span><br/>
 			<span id='back-to-default' class="location-link"><span class='button'>Switch back to default location</span><span class="glyphicon glyphicon-chevron-right"></span></span>
 		</div>
-		<!--<div class="share">
-			Share
-		</div>-->
+		<?php if (!is_numeric($userID)) { ?>
+			<div class="share">
+				<a data-toggle="modal" data-target="#tutorial-video" style="cursor:pointer;">Tutorial Video</a>
+			</div>
+		<?php } ?>
 	</div>
 
 	<?php if (is_numeric($userID)) { ?>

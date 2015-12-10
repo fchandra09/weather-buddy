@@ -414,6 +414,7 @@ a:hover, a:focus {
 .main-link a,
 .important-info a,
 .additional-info a,
+.share a,
 .location-link {
 	color: #fff;
 	text-decoration: underline;
@@ -423,6 +424,7 @@ a:hover, a:focus {
 .main-link a:hover, .main-link a:focus,
 .important-info a:hover, .important-info a:focus,
 .additional-info a:hover, .additional-info a:focus,
+.share a:hover, .share a:focus,
 .location-link:hover, .location-link:focus {
 	color: #4c4c4c;
 }
