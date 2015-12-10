@@ -486,10 +486,7 @@
 		}
 		//for darksky: clear-day, clear-night, rain, snow, sleet, wind, fog, cloudy, partly-cloudy-day, or partly-cloudy-night
 		if (darksky && iconClass == '') {
-			if (conditionID == 'clear-night' || currentTime > sunsetTime){
-				iconClass = 'moon';
-			}
-			else if (conditionID == 'rain'){
+			if (conditionID == 'rain'){
 				iconClass = 'rain';
 			} 
 			else if (conditionID == 'snow' || conditionID == 'sleet'){
@@ -497,6 +494,9 @@
 			}
 			else if (conditionID == 'fog' || conditionID == 'cloudy' || conditionID == 'partly-cloudy-night' || conditionID == 'partly-cloudy-day'){
 				iconClass = 'cloud';
+			}
+			else if (conditionID == 'clear-night' || currentTime > sunsetTime){
+				iconClass = 'moon';
 			}
 			else iconClass = 'sun';
 		}

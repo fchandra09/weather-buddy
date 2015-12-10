@@ -103,12 +103,10 @@
 					}
 					$('#location-text').html(locationText);
 					$.getJSON("https://api.forecast.io/forecast/0e5e272af26d7da6b94ffd58bf3b7f7a/"+result.latitude+","+result.longitude+"?callback=?", function(data){
-						console.log("FORECAST DATA");
-						console.log(data);
-						if(data.hourly){
-							fill(data.hourly.data, unit, data.daily.data[0].sunsetTime);
+						if(data){
+							fill(data, unit);
 						}
-					});			
+					});
 				}
 			});
 		}
@@ -149,9 +147,13 @@
 		});
 	}
 
-	function fill(hourly,unit, sunsetTime){
-		var start = getStartEndTime("start");
-		var end = getStartEndTime("end");
+	function fill(data,unit){
+		var hourly = data.hourly.data;
+		var times = getStartEndTime(data);
+		var start = times[0];
+		var end = times[1];
+		var sunsetTime = times[2];
+		
 		var time = '';
 		var bringText = [];
 		for (var i = 0; i < hourly.length; i++){
@@ -195,9 +197,10 @@
 		}
 	}
 
-	function getStartEndTime(time){
+	function getStartEndTime(data){
 		var start = $('#scheduleStart').text();
 		var end = $('#scheduleEnd').text();
+		var sunsetTime = data.daily.data[0].sunsetTime;
 
 		var startUnix = 0;
 		var endUnix = 0;
@@ -246,9 +249,15 @@
 			var oneDay = 24*60*60;
 			startUnix += oneDay;
 			endUnix += oneDay;
+			sunsetTime = data.daily.data[1].sunsetTime;
 		}
-		if(time === "start") return startUnix;
-		if(time === "end") return endUnix;
+
+		var times = [];
+		times.push(startUnix);
+		times.push(endUnix);
+		times.push(sunsetTime);
+
+		return times;
 		//to deal with later: multiple time periods?? checking to make sure it's the day wanted?
 
 	}
@@ -344,10 +353,7 @@
 		var iconClass = '';
 
 		//for darksky: clear-day, clear-night, rain, snow, sleet, wind, fog, cloudy, partly-cloudy-day, or partly-cloudy-night
-		if (conditionID == 'clear-night' || currentTime > sunsetTime){
-			iconClass = 'moon';
-		}
-		else if (conditionID == 'rain'){
+		if (conditionID == 'rain'){
 			iconClass = 'rain';
 		} 
 		else if (conditionID == 'snow' || conditionID == 'sleet'){
@@ -355,6 +361,9 @@
 		}
 		else if (conditionID == 'fog' || conditionID == 'cloudy' || conditionID == 'partly-cloudy-night' || conditionID == 'partly-cloudy-day'){
 			iconClass = 'cloud';
+		}
+		else if (conditionID == 'clear-night' || currentTime > sunsetTime){
+			iconClass = 'moon';
 		}
 		else iconClass = 'sun';
 
