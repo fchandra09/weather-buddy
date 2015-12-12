@@ -19,3 +19,5 @@ User Interface Design (CS465) Fall 2015 Final Project*
 *	[Timepicker for Twitter Bootstrap] (https://github.com/jdewit/bootstrap-timepicker)  
 *	[Moment.js] (http://momentjs.com/)  
 *	[password_compat] (https://github.com/ircmaxell/password_compat)  
+  
+Weather icons are from [Free Weather Icons] (http://medialoot.com/item/free-weather-vector-icons/)  
