@@ -279,6 +279,9 @@ a:hover, a:focus {
 		padding: 20px 5px 5px;
 		color: #4c4c4c;
 	}
+	.introduction-box a {
+		color: #4c4c4c;
+	}
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
@@ -288,6 +291,9 @@ a:hover, a:focus {
 	.introduction-box {
 		width: 100%;
 		padding: 30px 5px 10px;
+		color: #4c4c4c;
+	}
+	.introduction-box a {
 		color: #4c4c4c;
 	}
 }
